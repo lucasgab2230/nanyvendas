@@ -66,8 +66,8 @@ export function Guarantees() {
   const items = [
     {
       icon: ShieldCheck,
-      title: "Garantia de 6 meses no banho",
-      text: "Peça com banho de ouro 18k e garantia acompanhada no comprovante. Deu problema no banho dentro do prazo? A gente resolve.",
+      title: "Garantia de 6 meses",
+      text: "Peça feita de prata e garantia acompanhada no comprovante. Deu problema no banho dentro do prazo? A gente resolve.",
     },
     {
       icon: Sparkles,
@@ -168,7 +168,7 @@ export function AboutOwner() {
           </h2>
           <div className="mt-6 flex flex-col gap-4 font-sans text-[15px] leading-relaxed text-muted-foreground">
             <p>
-              A Nany Semijoias nasceu do jeito que a {STORE.owner} gosta de atender: olhando no olho, entendendo para
+              A Nany Semijoias e Vestuàrio nasceu do jeito que a {STORE.owner} gosta de atender: olhando no olho, entendendo para
               quem é a peça e ajudando a escolher. Ela mesma seleciona os modelos, testa o brilho e o fecho, e conversa
               com cada cliente pelo WhatsApp como se fosse na loja.
             </p>
@@ -199,11 +199,11 @@ export function Faq() {
     },
     {
       q: "Vocês entregam ou é só retirada?",
-      a: "Os dois. Na região de Ponta Grossa e cidades próximas dá para combinar entrega ou retirada em mãos. Para outras cidades, enviamos pelos Correios — o frete é combinado no WhatsApp antes de fechar.",
+      a: "Os dois. Na regiã�o de Guarapuava dá para combinar entrega ou retirada em mãos.",
     },
     {
       q: "As semijoias escurecem?",
-      a: "As peças têm banho de ouro 18k de alta durabilidade e garantia de 6 meses no banho. Com os cuidados básicos (tirar para banho, piscina e praia), a peça mantém o brilho por muito mais tempo.",
+      a: "As peças têm prata de alta durabilidade e garantia de 6 meses no banho. Com os cuidados básicos (tirar para banho, piscina e praia), a peça mantém o brilho por muito mais tempo.",
     },
     {
       q: "Dá para trocar ou devolver?",

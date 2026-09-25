@@ -20,7 +20,7 @@ export function SiteFooter() {
             <span className="font-sans text-[10px] tracking-[0.28em] text-gold/80 uppercase">Semijoias</span>
           </span>
           <p className="max-w-sm font-sans text-[13.5px] leading-relaxed text-muted-foreground">
-            Semijoias com banho de ouro 18k, escolhidas à mão pela {STORE.owner}. Atendimento pessoal, preço na
+            Semijoias de prata, escolhidas à mão pela {STORE.owner}. Atendimento pessoal, preço na
             etiqueta e entrega combinada direto no WhatsApp.
           </p>
           <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-gold self-start">
@@ -39,15 +39,6 @@ export function SiteFooter() {
           >
             <SiWhatsapp className="size-4 text-gold" />
             {STORE.whatsappLabel}
-          </a>
-          <a
-            href={STORE.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 font-sans text-[13.5px] text-foreground/85 transition-colors hover:text-gold-soft"
-          >
-            <Instagram className="size-4 text-gold" strokeWidth={1.5} />
-            @nanysemijoias
           </a>
           <span className="flex items-center gap-3 font-sans text-[13.5px] text-foreground/85">
             <MapPin className="size-4 text-gold" strokeWidth={1.5} />

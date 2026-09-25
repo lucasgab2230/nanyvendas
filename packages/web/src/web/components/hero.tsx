@@ -4,7 +4,7 @@ import { SuitcaseArt } from "./suitcase-art";
 import { STORE, whatsappLink } from "../lib/whatsapp";
 
 const trust = [
-  { icon: ShieldCheck, label: "Banho de ouro 18k", hint: "com garantia" },
+  { icon: ShieldCheck, label: "Prata com alta durabilidade e", hint: "com garantia" },
   { icon: Gift, label: "Embalagem de presente", hint: "inclusa" },
   { icon: Truck, label: "Entrega na região", hint: "e envio pelos Correios" },
 ];
@@ -44,7 +44,7 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
             className="rise mt-6 max-w-lg font-sans text-[15px] leading-relaxed text-muted-foreground"
             style={{ animationDelay: "260ms" }}
           >
-            Peças com banho de ouro 18k, preço na etiqueta e atendimento direto com a {STORE.owner}. Você escolhe a
+            Peças de prata, preço na etiqueta e atendimento direto com a {STORE.owner}. Você escolhe a
             peça aqui e finaliza no WhatsApp — sem cadastro, sem complicação.
           </p>
 
@@ -97,7 +97,7 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 font-sans text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-            <span>Banho de ouro 18k</span>
+            <span>Prata de alta durabilidade</span>
             <span className="text-gold/50">◆</span>
             <span>Garantia de 6 meses</span>
             <span className="text-gold/50">◆</span>

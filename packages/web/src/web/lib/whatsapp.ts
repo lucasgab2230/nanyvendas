@@ -7,13 +7,13 @@
  */
 
 export const STORE = {
-  name: "Nany Semijoias",
+  name: "Nany Semijoias e Vestuàrio",
   owner: "Eliane",
   /** Número no formato internacional, só dígitos — é ele que vai no wa.me. */
   whatsapp: "5542988089633",
   whatsappLabel: "+55 42 98808-9633",
-  city: "Ponta Grossa — PR",
-  hours: "Segunda a sábado, das 9h às 18h",
+  city: "Guarapuava — PR",
+  hours: "Segunda a sábado, das 9h às 12h",
   instagram: "https://www.instagram.com/",
 } as const;
 

@@ -48,7 +48,7 @@ export const categories: Category[] = [
   { slug: "conjuntos", name: "Conjuntos", tagline: "Presente pronto" },
 ];
 
-const care = "Banho de ouro 18k de alta durabilidade, com orientação de cuidado junto da peça.";
+const care = "Prata de alta durabilidade, com orientação de cuidado junto da peça.";
 
 export const products: Product[] = [
   {
