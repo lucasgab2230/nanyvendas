@@ -22,10 +22,15 @@ function Index() {
   const categoryName = catalog.data?.categories.find((c) => c.slug === selected?.category)?.name;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <SiteHeader />
       <main>
         <Hero pieceCount={catalog.data?.total} />
+        <div className="shell flex justify-center py-6">
+          <a href="/vestuario" className="btn-gold">
+            Ver Coleção de Vestuário →
+          </a>
+        </div>
         <Catalog onOpenProduct={setSelected} />
         <HowToBuy />
         <Guarantees />

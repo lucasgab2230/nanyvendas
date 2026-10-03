@@ -120,6 +120,48 @@
   --whatsapp: #25d366;
 }
 
+[data-theme="clothing"] {
+  --background: #0a0d14;
+  --foreground: #f2f6ff;
+  --card: #121823;
+  --card-foreground: #f2f6ff;
+  --popover: #121823;
+  --popover-foreground: #f2f6ff;
+  --primary: #4a9ae2;
+  --primary-foreground: #0a141f;
+  --secondary: #182233;
+  --secondary-foreground: #f2f6ff;
+  --muted: #182233;
+  --muted-foreground: #9fb3cc;
+  --accent: #1f3042;
+  --accent-foreground: #c9dcf5;
+  --destructive: #b4553f;
+  --border: rgba(74, 154, 226, 0.18);
+  --input: rgba(74, 154, 226, 0.22);
+  --ring: rgba(74, 154, 226, 0.45);
+  --chart-1: #4a9ae2;
+  --chart-2: #7fb3e8;
+  --chart-3: #2d6fb3;
+  --chart-4: #9dc5f2;
+  --chart-5: #c9dcf5;
+  --sidebar: #121823;
+  --sidebar-foreground: #f2f6ff;
+  --sidebar-primary: #4a9ae2;
+  --sidebar-primary-foreground: #0a141f;
+  --sidebar-accent: #1f3042;
+  --sidebar-accent-foreground: #c9dcf5;
+  --sidebar-border: rgba(74, 154, 226, 0.18);
+  --sidebar-ring: rgba(74, 154, 226, 0.45);
+
+  --gold: #4a9ae2;
+  --gold-soft: #c9dcf5;
+  --gold-deep: #2d6fb3;
+  --surface: #101826;
+  --elevated: #182233;
+  --rose: #d8a79c;
+  --whatsapp: #25d366;
+}
+
 .dark {
   --background: #0a0908;
   --foreground: #f7f2e8;

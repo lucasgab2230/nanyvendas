@@ -11,7 +11,7 @@ const links = [
   { href: "#duvidas", label: "Dúvidas" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ title = "Semijoias" }: { title?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -29,12 +29,12 @@ export function SiteHeader() {
       }`}
     >
       <div className="shell flex h-[70px] items-center justify-between gap-6">
-        <a href="#topo" className="flex items-baseline gap-3">
+        <a href="/" className="flex items-baseline gap-3">
           <span className="font-display text-[26px] leading-none text-foreground">
             Nany<span className="gold-text">.</span>
           </span>
           <span className="hidden font-sans text-[10px] tracking-[0.28em] text-gold/80 uppercase sm:block">
-            Semijoias
+            {title}
           </span>
         </a>
 

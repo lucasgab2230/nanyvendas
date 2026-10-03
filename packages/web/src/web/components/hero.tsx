@@ -52,6 +52,9 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
             <a href="#catalogo" className="btn-gold">
               Ver a vitrine{typeof pieceCount === "number" ? ` (${pieceCount} peças)` : ""}
             </a>
+            <a href="/vestuario" className="btn-ghost-gold">
+              Ver Coleção de Vestuário
+            </a>
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold">
               <SiWhatsapp className="size-3.5" />
               Tirar uma dúvida
