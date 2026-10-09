@@ -1,6 +1,5 @@
 import { ShieldCheck, Truck, Gift, Sparkles } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
-import { SuitcaseArt } from "./suitcase-art";
 import { STORE, whatsappLink } from "../lib/whatsapp";
 
 const trust = [
@@ -80,7 +79,11 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
             <div className="relative overflow-hidden border border-gold/12">
               <div className="plate relative flex items-center justify-center">
                 <div className="sheen pointer-events-none absolute inset-0 overflow-hidden" />
-                <SuitcaseArt className="float-soft w-[86%] text-gold-soft/80 sm:w-[78%]" />
+                <img
+                  src="/images/images/20261004_192042.jpg"
+                  alt="Porta-joias rosa aberto, com colares pendurados e divisórias para semijoias"
+                  className="max-h-[560px] w-full object-contain"
+                />
               </div>
 
               <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/70 to-transparent px-5 pt-14 pb-5">

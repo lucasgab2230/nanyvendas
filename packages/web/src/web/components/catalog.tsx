@@ -26,8 +26,8 @@ export function Catalog({ onOpenProduct }: { onOpenProduct: (product: Product) =
 
   const sorted = useMemo(() => {
     const list = [...(data?.products ?? [])];
-    if (sort === "menor") list.sort((a, b) => a.price - b.price);
-    if (sort === "maior") list.sort((a, b) => b.price - a.price);
+    if (sort === "menor") list.sort((a, b) => (a.price ?? Number.POSITIVE_INFINITY) - (b.price ?? Number.POSITIVE_INFINITY));
+    if (sort === "maior") list.sort((a, b) => (b.price ?? Number.NEGATIVE_INFINITY) - (a.price ?? Number.NEGATIVE_INFINITY));
     if (sort === "destaques") list.sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
     return list;
   }, [data, sort]);
@@ -44,11 +44,10 @@ export function Catalog({ onOpenProduct }: { onOpenProduct: (product: Product) =
             <h2 className="mt-3 text-4xl leading-[1.05] sm:text-5xl">
               Escolha a sua peça,
               <br />
-              <span className="gold-text italic">o preço já está aqui</span>
+              <span className="gold-text italic">detalhes fiéis às fotos</span>
             </h2>
             <p className="mt-4 font-sans text-[15px] leading-relaxed text-muted-foreground">
-              Tudo que aparece nesta vitrine está disponível com a {STORE.owner} — clique na peça para ver os detalhes
-              e pedir pelo WhatsApp. As fotos e alguns preços são de exemplo nesta prévia.
+              Clique na peça para ver os detalhes e pedir pelo WhatsApp. Nas fotos sem preço legível, consulte o valor diretamente com a {STORE.owner}.
             </p>
           </div>
 

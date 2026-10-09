@@ -26,10 +26,10 @@ export function formatPrice(value: number): string {
 }
 
 /** Mensagem com a peça identificada — usada no botão do modal. */
-export function productMessage(product: { name: string; price: number; slug: string }): string {
+export function productMessage(product: { name: string; price: number | null; slug: string }): string {
   return [
-    `Olá, ${STORE.owner}! Vi no site a peça *${product.name}* (${formatPrice(product.price)})`,
-    "e gostaria de saber se ela está disponível.",
+    `Olá, ${STORE.owner}! Vi no site a peça *${product.name}*${product.price === null ? "" : ` (${formatPrice(product.price)})`}`,
+    product.price === null ? "e gostaria de saber o preço e se ela está disponível." : "e gostaria de saber se ela está disponível.",
     "",
     `Peça: ${product.slug}`,
   ].join("\n");
@@ -40,6 +40,6 @@ export function whatsappLink(message: string = DEFAULT_MESSAGE): string {
   return `https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
-export function productWhatsappLink(product: { name: string; price: number; slug: string }): string {
+export function productWhatsappLink(product: { name: string; price: number | null; slug: string }): string {
   return whatsappLink(productMessage(product));
 }

@@ -18,7 +18,7 @@ export function ProductCard({
   onOpen: (product: Product) => void;
 }) {
   const discount =
-    product.compareAtPrice && product.compareAtPrice > product.price
+    product.price !== null && product.compareAtPrice && product.compareAtPrice > product.price
       ? Math.round((1 - product.price / product.compareAtPrice) * 100)
       : 0;
 
@@ -46,7 +46,9 @@ export function ProductCard({
               {formatPrice(product.compareAtPrice!)}
             </span>
           )}
-          <span className="font-display text-2xl text-gold-soft">{formatPrice(product.price)}</span>
+          <span className="font-display text-2xl text-gold-soft">
+            {product.price === null ? "Consultar preço" : formatPrice(product.price)}
+          </span>
         </div>
         <span className="font-sans text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
           {variant === "horizontal" ? "Ver peça →" : "Detalhes →"}
@@ -59,7 +61,7 @@ export function ProductCard({
     <button
       type="button"
       onClick={() => onOpen(product)}
-      aria-label={`Ver ${product.name} — ${formatPrice(product.price)}`}
+      aria-label={`Ver ${product.name} — ${product.price === null ? "consultar preço" : formatPrice(product.price)}`}
       className={`piece-card group w-full ${variant === "horizontal" ? "flex-col sm:flex-row" : "flex-col"}`}
     >
       <JewelPlate

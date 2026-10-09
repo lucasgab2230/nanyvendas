@@ -35,7 +35,7 @@ export function ProductModal({
   if (!product) return null;
 
   const discount =
-    product.compareAtPrice && product.compareAtPrice > product.price
+    product.price !== null && product.compareAtPrice && product.compareAtPrice > product.price
       ? Math.round((1 - product.price / product.compareAtPrice) * 100)
       : 0;
 
@@ -96,8 +96,10 @@ export function ProductModal({
               <h3 className="font-display text-4xl leading-tight text-foreground sm:text-5xl">{product.name}</h3>
 
               <div className="flex flex-wrap items-end gap-3">
-                <span className="font-display text-3xl text-gold-soft">{formatPrice(product.price)}</span>
-                {product.compareAtPrice && (
+                <span className="font-display text-3xl text-gold-soft">
+                  {product.price === null ? "Consultar preço" : formatPrice(product.price)}
+                </span>
+                {product.price !== null && product.compareAtPrice && (
                   <span className="font-sans text-sm text-muted-foreground/70 line-through">
                     {formatPrice(product.compareAtPrice)}
                   </span>
@@ -129,7 +131,8 @@ export function ProductModal({
                   Pedir no WhatsApp
                 </a>
                 <p className="font-sans text-[11px] leading-relaxed text-muted-foreground">
-                  A mensagem já vai pronta para a {STORE.owner} com o nome e o preço desta peça. Pagamento por Pix,
+                  A mensagem já vai pronta para a {STORE.owner} com o nome desta peça
+                  {product.price === null ? " para consultar o valor e a disponibilidade" : ` e o preço de ${formatPrice(product.price)}`}. Pagamento por Pix,
                   dinheiro ou cartão na entrega.
                 </p>
               </div>
