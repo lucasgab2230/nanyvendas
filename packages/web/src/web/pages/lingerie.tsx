@@ -1,18 +1,18 @@
 import { useState } from "react";
-import type { ClothingProduct } from "../../api/catalog/clothing-products";
-import { CatalogVestuario } from "../components/catalog-vestuario";
+import type { LingerieProduct } from "../../api/catalog/lingerie-products";
+import { CatalogLingerie } from "../components/catalog-lingerie";
 import { ProductModal } from "../components/product-modal";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { WhatsappFab } from "../components/whatsapp-fab";
 
-function ClothingPage() {
-  const [selected, setSelected] = useState<ClothingProduct | null>(null);
+function LingeriePage() {
+  const [selected, setSelected] = useState<LingerieProduct | null>(null);
   const categoryName = selected?.category;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background" data-theme="clothing">
-      <SiteHeader title="Vestuário" />
+      <SiteHeader title="Lingerie" />
       <main>
         <section className="grain relative overflow-hidden pt-[110px] pb-16 sm:pt-[130px] sm:pb-24">
           <div className="pointer-events-none absolute inset-0">
@@ -22,15 +22,15 @@ function ClothingPage() {
           </div>
           <div className="shell relative">
             <div className="max-w-2xl">
-              <p className="eyebrow">Nany • Vestuário</p>
+              <p className="eyebrow">Nany • Lingerie</p>
               <h1 className="mt-5 text-[42px] leading-[1.02] sm:text-[56px] lg:text-[62px]">
-                Coleção de Vestuário
+                Coleção de Lingerie
                 <br />
-                <span className="gold-text italic">estilo que combina com você</span>
+                <span className="gold-text italic">conforto com delicadeza</span>
               </h1>
               <p className="mt-6 max-w-lg font-sans text-[15px] leading-relaxed text-muted-foreground">
-                Roupas casuais e elegantes, com cores e estilos variados. Clique na peça para ver os detalhes e
-                pedir pelo WhatsApp.
+                Meias, cuecas e calcinhas com conforto e estilo. Clique na peça para ver os detalhes e pedir pelo
+                WhatsApp.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a href="#catalogo" className="btn-gold">
@@ -39,20 +39,20 @@ function ClothingPage() {
                 <a href="/" className="btn-ghost-gold">
                   Voltar para Semijoias
                 </a>
-                <a href="/lingerie" className="btn-ghost-gold">
-                  Ver Lingerie
+                <a href="/vestuario" className="btn-ghost-gold">
+                  Ver Vestuário
                 </a>
               </div>
             </div>
           </div>
         </section>
-        <CatalogVestuario onOpenProduct={(p) => setSelected(p as any)} />
+        <CatalogLingerie onOpenProduct={(p) => setSelected(p as any)} />
       </main>
-      <SiteFooter title="Vestuário" />
+      <SiteFooter title="Lingerie" />
       <WhatsappFab />
       <ProductModal product={selected as any} categoryName={categoryName} onClose={() => setSelected(null)} />
     </div>
   );
 }
 
-export default ClothingPage;
+export default LingeriePage;

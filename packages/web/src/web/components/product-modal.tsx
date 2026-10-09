@@ -74,7 +74,7 @@ export function ProductModal({
               alt={product.name}
               className="relative min-h-[280px] w-full md:min-h-full"
               artClassName="w-[46%] text-gold-soft/85"
-              slotHint="foto da peça entra aqui • 1200 × 1200"
+              showSlotHint={false}
             >
               {discount > 0 && (
                 <span className="absolute top-4 left-4 bg-gold px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.16em] text-[#14110d] uppercase">

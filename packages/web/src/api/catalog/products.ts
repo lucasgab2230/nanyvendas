@@ -53,19 +53,18 @@ const care = "Prata de alta durabilidade, com orientação de cuidado junto da p
 export const products: Product[] = [
   {
     id: 1,
-    slug: "anel-solitario-luna",
-    name: "Anel Solitário Luna",
+    slug: "anel-dourado-grosso",
+    name: "Anel Dourado",
     category: "aneis",
-    price: 149.9,
-    compareAtPrice: 189.9,
-    summary: "Solitário com zircônia brilhante em aro fino.",
+    price: 79.9,
+    summary: "Um anel dourado por R$79,90 que combina para vocé.",
     description:
-      "O clássico solitário, afinado para o dia a dia. A zircônia lapidada em brilhante traz o brilho do diamante sem o peso do preço — e o aro fino permite usar junto de aliança ou de outros anéis.",
-    highlights: ["Zircônia lapidada brilhante", "Aro fino, confortável", "Ajuste sob medida na loja", care],
+      "Um anel dourado sem banho a ouro 18K feito para moda, estilo, simbolismo ou compromisso.",
+    highlights: ["Dourado", "Aro grosso, confortável"],
     badge: "Mais vendida",
     featured: true,
     tone: 1,
-    image: null,
+    image: "/images/20261004_193857.jpg",
   },
   {
     id: 2,
@@ -78,7 +77,7 @@ export const products: Product[] = [
       "Um anel que já parece dois: os aros se cruzam na frente e criam um volume leve, ótimo para quem gosta de sobrepor anéis sem exagero.",
     highlights: ["Efeito de anéis sobrepostos", "Ø 16 a 19 com ajuste", care],
     tone: 3,
-    image: null,
+    image: "/images/20261004_193936.jpg",
   },
   {
     id: 3,
@@ -91,7 +90,7 @@ export const products: Product[] = [
       "Aro ajustável de verdade: abre e fecha para servir em qualquer dedo, de mão em mão. A folha vazada é daquelas peças que a pessoa sai usando do primeiro dia.",
     highlights: ["Aro ajustável", "Ideal para presente", care],
     tone: 5,
-    image: null,
+    image: "/images/20261004_193959.jpg",
   },
   {
     id: 4,
@@ -106,7 +105,7 @@ export const products: Product[] = [
     badge: "Novidade",
     featured: true,
     tone: 2,
-    image: null,
+    image: "/images/20261004_194050.jpg",
   },
   {
     id: 5,
@@ -119,7 +118,7 @@ export const products: Product[] = [
       "O ponto de luz é o colar que resolve tudo: discreto no trabalho, brilhante à noite. Fio fino com uma zircônia em montagem de garra, bem no meio do colo.",
     highlights: ["42 cm com extensor", "Monte com brinco combinando", care],
     tone: 1,
-    image: null,
+    image: "/images/20261004_195659.jpg",
   },
   {
     id: 6,
@@ -133,7 +132,7 @@ export const products: Product[] = [
       "Pérola sintética de alto brilho em fio resistente, no comprimento de gargantilha. Aquela peça atemporal que combina com vestido e com camiseta branca.",
     highlights: ["Comprimento 38 cm", "Fecho reforçado", care],
     tone: 4,
-    image: null,
+    image: "/images/20261004_200109.jpg",
   },
   {
     id: 7,
@@ -147,7 +146,7 @@ export const products: Product[] = [
     highlights: ["Ø 3 cm", "Leve, não pesa na orelha", care],
     badge: "Mais vendida",
     tone: 3,
-    image: null,
+    image: "/images/20261004_200148.jpg",
   },
   {
     id: 8,
@@ -160,7 +159,7 @@ export const products: Product[] = [
       "Gota facetada suspensa, com movimento no balanço da cabeça. Um brinco que faz a luz trabalhar sozinha — perfeito para festa e para o jantar de domingo.",
     highlights: ["2,8 cm de altura", "Pedra facetada", care],
     tone: 5,
-    image: null,
+    image: "/images/20261004_200219.jpg",
   },
   {
     id: 9,
@@ -173,7 +172,7 @@ export const products: Product[] = [
       "Três zircônias alinhadas, subindo a orelha. Dá a impressão de múltiplos furos com a praticidade de um brinco só.",
     highlights: ["Efeito de múltiplos furos", "Tamanho único", care],
     tone: 4,
-    image: null,
+    image: "/images/20261004_200240.jpg",
   },
   {
     id: 10,
@@ -187,7 +186,7 @@ export const products: Product[] = [
     highlights: ["17 cm + extensor de 3 cm", "Fecho reforçado", care],
     featured: true,
     tone: 2,
-    image: null,
+    image: "/images/20261004_200345.jpg",
   },
   {
     id: 11,
@@ -200,7 +199,7 @@ export const products: Product[] = [
       "Clássico dos clássicos: elos italianos achatados, com brilho espelhado. Aguenta uso diário, sol e água da mão com os cuidados de sempre.",
     highlights: ["18 cm", "Brilho espelhado", care],
     tone: 3,
-    image: null,
+    image: "/images/20261004_200443.jpg",
   },
   {
     id: 12,
@@ -216,7 +215,7 @@ export const products: Product[] = [
     badge: "Presente pronto",
     featured: true,
     tone: 1,
-    image: null,
+    image: "/images/20261004_200508.jpg",
   },
   {
     id: 13,
@@ -229,7 +228,7 @@ export const products: Product[] = [
       "Conjunto de festa: gargantilha de pedras e brinco suspenso combinando. Feito para formatura, casamento e aniversário de 15 anos.",
     highlights: ["Gargantilha + brinco", "Ideal para formatura e casamento", care],
     tone: 5,
-    image: null,
+    image: "/images/20261004_200539.jpg",
   },
   {
     id: 14,
@@ -242,6 +241,6 @@ export const products: Product[] = [
       "Par de anéis em tamanhos diferentes, com acabamento fosco e polido no mesmo aro. Combina para casais que querem uma aliança discreta para o dia a dia.",
     highlights: ["Par com dois tamanhos", "Ajuste de tamanho na loja", care],
     tone: 4,
-    image: null,
+    image: "/images/20261004_200608.jpg",
   },
 ];

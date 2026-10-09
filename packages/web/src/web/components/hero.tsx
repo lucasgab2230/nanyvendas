@@ -88,14 +88,10 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
                   A maleta da Nany
                 </span>
                 <span className="font-sans text-[11px] text-muted-foreground">
-                  Espaço reservado para a foto da maleta aberta com as semijoias
-                </span>
+              </span>
               </div>
 
-              <span className="absolute top-4 right-4 flex items-center gap-2 border border-gold/30 bg-black/45 px-3 py-1.5 font-sans text-[9px] tracking-[0.18em] text-gold-soft uppercase backdrop-blur-sm">
-                <Sparkles className="size-3" strokeWidth={1.6} />
-                Prévia do site
-              </span>
+
             </div>
           </div>
 

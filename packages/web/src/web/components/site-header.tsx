@@ -4,7 +4,9 @@ import { SiWhatsapp } from "react-icons/si";
 import { STORE, whatsappLink } from "../lib/whatsapp";
 
 const links = [
-  { href: "#catalogo", label: "Vitrine" },
+  { href: "/", label: "Semijoias" },
+  { href: "/vestuario", label: "Vestuário" },
+  { href: "/lingerie", label: "Lingerie" },
   { href: "#como-comprar", label: "Como comprar" },
   { href: "#cuidados", label: "Garantia" },
   { href: "#sobre", label: "A Nany" },

@@ -260,33 +260,31 @@
 
   .btn-gold {
     @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none px-6 py-3 font-sans text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300;
-    background: linear-gradient(100deg, #b48c34, #e0c274 45%, #c9a24a);
-    color: #14110d;
+    background: var(--foreground);
+    color: var(--background);
   }
   .btn-gold:hover {
-    filter: brightness(1.08);
-    box-shadow: 0 12px 34px -14px rgba(201, 162, 74, 0.75);
+    filter: brightness(0.92);
   }
 
   .btn-ghost-gold {
     @apply inline-flex items-center justify-center gap-2 rounded-none border px-6 py-3 font-sans text-[12px] font-medium tracking-[0.18em] uppercase transition-all duration-300;
-    border-color: rgba(201, 162, 74, 0.42);
-    color: var(--gold-soft);
-    background: rgba(201, 162, 74, 0.05);
+    border-color: var(--foreground);
+    color: var(--foreground);
+    background: transparent;
   }
   .btn-ghost-gold:hover {
-    background: rgba(201, 162, 74, 0.14);
-    border-color: rgba(235, 215, 154, 0.7);
+    background: var(--foreground);
+    color: var(--background);
   }
 
   .btn-whatsapp {
     @apply inline-flex items-center justify-center gap-2 rounded-none px-7 py-3.5 font-sans text-[12px] font-semibold tracking-[0.14em] uppercase transition-all duration-300;
-    background: #1fbf5b;
-    color: #05170c;
+    background: var(--foreground);
+    color: var(--background);
   }
   .btn-whatsapp:hover {
-    background: var(--whatsapp);
-    box-shadow: 0 14px 34px -16px rgba(37, 211, 102, 0.85);
+    filter: brightness(0.92);
   }
 
   /* ── Card de produto: vitrine seca, sem "card genérico" ───────────── */

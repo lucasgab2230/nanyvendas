@@ -26,9 +26,12 @@ function Index() {
       <SiteHeader />
       <main>
         <Hero pieceCount={catalog.data?.total} />
-        <div className="shell flex justify-center py-6">
+        <div className="shell flex flex-wrap justify-center gap-4 py-6">
           <a href="/vestuario" className="btn-gold">
             Ver Coleção de Vestuário →
+          </a>
+          <a href="/lingerie" className="btn-gold">
+            Ver Coleção de Lingerie →
           </a>
         </div>
         <Catalog onOpenProduct={setSelected} />
@@ -38,7 +41,7 @@ function Index() {
         <Faq />
         <FinalCta />
       </main>
-      <SiteFooter />
+      <SiteFooter title="Semijoias" />
       <WhatsappFab />
       <ProductModal product={selected} categoryName={categoryName} onClose={() => setSelected(null)} />
     </div>
