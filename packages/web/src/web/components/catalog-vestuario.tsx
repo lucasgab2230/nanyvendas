@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { SearchX } from "lucide-react";
 import type { ClothingProduct } from "../../api/catalog/clothing-products";
 import { useVestuario } from "../queries/vestuario";
-import { STORE } from "../lib/whatsapp";
+import { STORE, whatsappLink } from "../lib/whatsapp";
+import { SiWhatsapp } from "react-icons/si";
 import { ProductCard } from "./product-card";
 import { Reveal } from "./reveal";
 
@@ -22,6 +23,7 @@ export function CatalogVestuario({ onOpenProduct }: { onOpenProduct: (product: C
   const data = catalog.data as any;
   const products = data?.products ?? [];
   const categories = data?.categories ?? [];
+  const catalogTotal = data?.catalogTotal ?? data?.total ?? 0;
 
   const sorted = useMemo(() => {
     const list = [...(data?.products ?? [])] as ClothingProduct[];
@@ -34,6 +36,10 @@ export function CatalogVestuario({ onOpenProduct }: { onOpenProduct: (product: C
   const activeCategory = categories.find((c: any) => c.slug === category);
   const categoryName = (slug: string) => categories.find((c: any) => c.slug === slug)?.name;
 
+  if (!catalog.isLoading && !catalog.isError && catalogTotal === 0) {
+    return null;
+  }
+
   return (
     <section id="catalogo" className="grain relative scroll-mt-24 border-y border-gold/12 bg-surface py-20 sm:py-28">
       <div className="shell relative">
@@ -43,11 +49,10 @@ export function CatalogVestuario({ onOpenProduct }: { onOpenProduct: (product: C
             <h2 className="mt-3 text-4xl leading-[1.05] sm:text-5xl">
               Escolha a sua peça,
               <br />
-              <span className="gold-text italic">o preço já está aqui</span>
+              <span className="gold-text italic">conheça as peças</span>
             </h2>
             <p className="mt-4 font-sans text-[15px] leading-relaxed text-muted-foreground">
-              Tudo que aparece nesta vitrine está disponível com a {STORE.owner} — clique na peça para ver os detalhes
-              e pedir pelo WhatsApp.
+              Confira os detalhes e valores cadastrados para cada peça. A {STORE.owner} confirma disponibilidade e esclarece o que não estiver informado pelo WhatsApp.
             </p>
           </div>
 
@@ -103,9 +108,10 @@ export function CatalogVestuario({ onOpenProduct }: { onOpenProduct: (product: C
         </div>
 
         {catalog.isError && (
-          <p className="mt-8 border border-destructive/40 bg-destructive/10 p-5 font-sans text-sm text-foreground/90">
-            Não consegui carregar a vitrine agora. Recarregue a página ou fale direto com a Eliane pelo WhatsApp.
-          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border border-destructive/40 bg-destructive/10 p-5 font-sans text-sm text-foreground/90">
+            <p>Não consegui carregar a vitrine agora. Tente novamente ou consulte as opções com a {STORE.owner}.</p>
+            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold"><SiWhatsapp className="size-4" />Falar pelo WhatsApp</a>
+          </div>
         )}
 
         {catalog.isLoading && (
@@ -128,8 +134,7 @@ export function CatalogVestuario({ onOpenProduct }: { onOpenProduct: (product: C
             <SearchX className="size-7 text-gold" strokeWidth={1.4} />
             <p className="font-display text-3xl">Nada por aqui ainda</p>
             <p className="max-w-md font-sans text-sm leading-relaxed text-muted-foreground">
-              Essa categoria está sem peças nesta prévia. Veja a vitrine inteira ou pergunte para a Eliane — ela tem
-              muito mais na loja.
+              Não há peças cadastradas nesta categoria. Volte à vitrine completa ou consulte a {STORE.owner} sobre as opções disponíveis.
             </p>
             <button type="button" onClick={() => setCategory("todas")} className="btn-gold">
               Ver todas as peças

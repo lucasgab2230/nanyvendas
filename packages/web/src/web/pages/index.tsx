@@ -4,10 +4,11 @@ import { useCatalog } from "../queries/catalog";
 import { SiteHeader } from "../components/site-header";
 import { Hero } from "../components/hero";
 import { Catalog } from "../components/catalog";
-import { HowToBuy, Guarantees, AboutOwner, Faq, FinalCta } from "../components/sections";
+import { FirstVisit, HowToBuy, PurchaseInfo, AboutOwner, Faq, FinalCta } from "../components/sections";
 import { SiteFooter } from "../components/site-footer";
 import { WhatsappFab } from "../components/whatsapp-fab";
 import { ProductModal } from "../components/product-modal";
+import { STORE, whatsappLink } from "../lib/whatsapp";
 
 /**
  * Home da Nany Semijoias: banner com a maleta, vitrine com preços e o caminho
@@ -26,17 +27,18 @@ function Index() {
       <SiteHeader />
       <main>
         <Hero pieceCount={catalog.data?.total} />
+        <FirstVisit />
         <div className="shell flex flex-wrap justify-center gap-4 py-6">
-          <a href="/vestuario" className="btn-gold">
-            Ver Coleção de Vestuário →
+          <a href={whatsappLink(`Olá, ${STORE.owner}! Estou conhecendo o vestuário da Nany. Você pode me enviar as opções disponíveis e confirmar tamanhos e valores?`)} target="_blank" rel="noopener noreferrer" className="btn-gold">
+            Consultar Vestuário →
           </a>
-          <a href="/lingerie" className="btn-gold">
-            Ver Coleção de Lingerie →
+          <a href={whatsappLink(`Olá, ${STORE.owner}! Estou conhecendo a lingerie da Nany. Você pode me enviar as opções disponíveis e confirmar tamanhos e valores?`)} target="_blank" rel="noopener noreferrer" className="btn-gold">
+            Consultar Lingerie →
           </a>
         </div>
         <Catalog onOpenProduct={setSelected} />
         <HowToBuy />
-        <Guarantees />
+        <PurchaseInfo />
         <AboutOwner />
         <Faq />
         <FinalCta />

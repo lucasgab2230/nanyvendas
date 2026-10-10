@@ -4,8 +4,9 @@ Landing page + catálogo de semijoias para a loja **Nany Semijoias** (dona: Elia
 "joalheria": preto quente, dourado e uma serifada fina. O trabalho principal da página é levar a visitante do
 brilho da vitrine até uma conversa no WhatsApp com o produto já identificado na mensagem.
 
-Versão atual = **modelo de apresentação**: as fotos reais ainda não existem, então cada peça mostra um
-placeholder elegante que também marca visualmente onde a foto vai entrar.
+Versão atual = **vitrine com fotos reais de semijoias** em `packages/web/public/images/images/`. O banner mostra a
+foto do porta-joias (não é um produto). Preços ilegíveis ou ausentes devem ser consultados pelo WhatsApp. Vestuário
+e lingerie permanecem sem itens publicados até que fotos e dados reais sejam confirmados.
 
 ## Brand & Colors
 
@@ -40,8 +41,8 @@ grão (`.grain`) para não ficar chapado. Nada de branco puro em texto longo.
 ## Layout
 
 - Container `max-w-7xl` com respiro lateral de 20–28px; seções com 96–128px de padding vertical.
-- Assimetria deliberada: hero em 7/5 colunas com a maleta invadindo a margem direita; catálogo em grid de
-  3 colunas com o card "destaque" ocupando 2 colunas; seção "quem faz" com retrato deslocado.
+- Assimetria deliberada: hero em 5/7 colunas com a foto da maleta invadindo a margem direita; catálogo em grid de
+  3 colunas com o card "destaque" ocupando 2 colunas; apresentação da loja sem retrato de banco de imagens.
 - Sem "grade de cards arredondados genérica": cards de produto são retângulos secos com cantos de 2px,
   filete dourado e sombra interna — vitrine, não dashboard.
 - Divisórias são filetes dourados de 1px com fade nas pontas, nunca bordas cinzas.
@@ -49,29 +50,32 @@ grão (`.grain`) para não ficar chapado. Nada de branco puro em texto longo.
 ## Components
 
 - **Header** (`components/site-header.tsx`) — fixo, translúcido com blur ao rolar, âncora das seções + CTA WhatsApp.
-- **Hero / banner** (`components/hero.tsx` + `components/suitcase-art.tsx`) — banner full-bleed com a arte da
-  maleta aberta com semijoias (placeholder rotulado "foto real entra aqui") e o título sobreposto.
+- **Hero / banner** (`components/hero.tsx`) — banner com a foto real do porta-joias, título claro, atalho à vitrine
+  e convite de primeiro contato.
 - **Placeholder de joia** (`components/jewel-art.tsx`) — arte vetorial por categoria (anel, colar, brinco,
   pulseira, conjunto) desenhada à mão em traço dourado, usada em todo lugar onde faltar foto real.
 - **Catálogo** (`components/catalog.tsx`, `product-card.tsx`) — filtros por categoria em pills + grid; card mostra
-  nome, categoria, preço (e preço antigo riscado quando houver) e selo.
+  nome, categoria, preço quando legível (ou consulta), descrição e selo. Disponibilidade é confirmada pela loja.
 - **Modal da peça** (`components/product-modal.tsx`) — nome, preço, descrição, detalhes técnicos e o botão
   "Pedir no WhatsApp" com mensagem padrão já preenchida. Fecha com Esc, clique no scrim e botão X.
-- **Como comprar / Garantias / Sobre a Eliane / Perguntas / Footer** — blocos de confiança, todos com CTA.
+- **Primeira visita / Como comprar / Informações de compra / Sobre a Nany / Perguntas / Footer** — blocos acolhedores
+  que deixam disponibilidade, entrega, pagamento e condições específicos para confirmação com Eliane.
 - **Botão flutuante do WhatsApp** (`components/whatsapp-fab.tsx`) — sempre visível, com mensagem padrão geral.
 
 ## Key User Flows
 
-1. **Ver vitrine → abrir peça → pedir:** visitante abre a home → banner apresenta a loja → rola até o catálogo →
-   filtra por categoria → clica numa peça → modal com nome, preço e detalhes → "Pedir no WhatsApp" abre
-   `wa.me/5542988089633` com a mensagem "Olá, Eliane! Vi no site a peça *X* (R$ Y)...".
-2. **Dúvida rápida:** qualquer CTA (header, hero, botão flutuante, rodapé) abre o WhatsApp com a mensagem geral.
-3. **Filtro sem resultado:** o grid mostra estado vazio com atalho para voltar a "Todas".
+1. **Primeira visita:** a cliente abre a home, vê o convite de boas-vindas, a foto real do porta-joias e as semijoias.
+2. **Ver vitrine → abrir peça → pedir:** filtra por categoria, abre uma peça e envia pelo WhatsApp uma mensagem que
+   identifica o item; se o preço não estiver disponível, a mensagem pede confirmação.
+3. **Dúvida rápida:** os CTAs de contato levam ao WhatsApp; os atalhos de roupas/lingerie já preparam uma consulta
+   sobre as opções atuais. Não são exibidos preços nem produtos de demonstração nessas categorias.
+4. **Filtro sem resultado:** o grid informa a categoria vazia e permite voltar a "Todas".
 
 ## Architecture
 
 - **API**: `packages/web/src/api/routes/catalog.ts` (oRPC) lê o catálogo tipado de
   `packages/web/src/api/catalog/products.ts` — `catalog.list` aceita `{ category }` e devolve categorias + peças.
+  Rotas separadas para vestuário e lingerie não expõem produtos até haver fotos/preços confirmados.
 - **Web**: hooks em `packages/web/src/web/queries/catalog.ts` (`useCatalog`), consumidos pela página e pelo grid.
   Skeleton de carregamento obrigatório antes do grid.
 - **WhatsApp**: helper único em `packages/web/src/web/lib/whatsapp.ts` (número, mensagem padrão e mensagem por

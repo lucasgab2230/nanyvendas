@@ -31,6 +31,7 @@ export const lingerie = {
         categories: lingerieCategories as any[],
         products: list,
         total: list.length,
+        catalogTotal: lingerieProducts.length,
         featured: lingerieProducts.filter((p: any) => p.featured).slice(0, 3),
       };
     }),

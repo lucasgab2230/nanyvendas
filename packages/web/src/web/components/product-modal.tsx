@@ -44,7 +44,8 @@ export function ProductModal({
   return (
     <dialog
       open
-      aria-label={product.name}
+      aria-modal="true"
+      aria-labelledby="product-modal-title"
       className="fixed inset-0 z-[90] m-0 h-full max-h-none w-full max-w-none bg-black/80 p-0 backdrop-blur-sm"
     >
       {/* área fora do painel: clicar aqui fecha a peça */}
@@ -93,7 +94,7 @@ export function ProductModal({
                 )}
               </div>
 
-              <h3 className="font-display text-4xl leading-tight text-foreground sm:text-5xl">{product.name}</h3>
+              <h3 id="product-modal-title" className="font-display text-4xl leading-tight text-foreground sm:text-5xl">{product.name}</h3>
 
               <div className="flex flex-wrap items-end gap-3">
                 <span className="font-display text-3xl text-gold-soft">
@@ -132,8 +133,7 @@ export function ProductModal({
                 </a>
                 <p className="font-sans text-[11px] leading-relaxed text-muted-foreground">
                   A mensagem já vai pronta para a {STORE.owner} com o nome desta peça
-                  {product.price === null ? " para consultar o valor e a disponibilidade" : ` e o preço de ${formatPrice(product.price)}`}. Pagamento por Pix,
-                  dinheiro ou cartão na entrega.
+                  {product.price === null ? " para consultar o valor e a disponibilidade" : ` e o preço de ${formatPrice(product.price)}`}. Confirme o valor final, a disponibilidade, as formas de pagamento e a entrega diretamente com a loja antes de concluir.
                 </p>
               </div>
             </div>

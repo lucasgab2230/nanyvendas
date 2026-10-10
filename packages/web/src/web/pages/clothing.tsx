@@ -5,6 +5,7 @@ import { ProductModal } from "../components/product-modal";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { WhatsappFab } from "../components/whatsapp-fab";
+import { STORE, whatsappLink } from "../lib/whatsapp";
 
 function ClothingPage() {
   const [selected, setSelected] = useState<ClothingProduct | null>(null);
@@ -24,17 +25,16 @@ function ClothingPage() {
             <div className="max-w-2xl">
               <p className="eyebrow">Nany • Vestuário</p>
               <h1 className="mt-5 text-[42px] leading-[1.02] sm:text-[56px] lg:text-[62px]">
-                Coleção de Vestuário
+                Vestuário da Nany
                 <br />
-                <span className="gold-text italic">estilo que combina com você</span>
+                <span className="gold-text italic">consulte as opções atuais</span>
               </h1>
               <p className="mt-6 max-w-lg font-sans text-[15px] leading-relaxed text-muted-foreground">
-                Roupas casuais e elegantes, com cores e estilos variados. Clique na peça para ver os detalhes e
-                pedir pelo WhatsApp.
+                Esta vitrine está sendo atualizada com fotos, tamanhos e valores confirmados. Peça à {STORE.owner} a seleção de vestuário disponível agora.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a href="#catalogo" className="btn-gold">
-                  Ver a vitrine
+                <a href={whatsappLink(`Olá, ${STORE.owner}! Estou conhecendo o vestuário da Nany. Você pode me enviar as opções disponíveis e confirmar tamanhos e valores?`)} target="_blank" rel="noopener noreferrer" className="btn-gold">
+                  Consultar vestuário
                 </a>
                 <a href="/" className="btn-ghost-gold">
                   Voltar para Semijoias

@@ -44,7 +44,7 @@ export function Catalog({ onOpenProduct }: { onOpenProduct: (product: Product) =
             <h2 className="mt-3 text-4xl leading-[1.05] sm:text-5xl">
               Escolha a sua peça,
               <br />
-              <span className="gold-text italic">detalhes fiéis às fotos</span>
+              <span className="gold-text italic">e confira cada detalhe</span>
             </h2>
             <p className="mt-4 font-sans text-[15px] leading-relaxed text-muted-foreground">
               Clique na peça para ver os detalhes e pedir pelo WhatsApp. Nas fotos sem preço legível, consulte o valor diretamente com a {STORE.owner}.
@@ -128,8 +128,7 @@ export function Catalog({ onOpenProduct }: { onOpenProduct: (product: Product) =
             <SearchX className="size-7 text-gold" strokeWidth={1.4} />
             <p className="font-display text-3xl">Nada por aqui ainda</p>
             <p className="max-w-md font-sans text-sm leading-relaxed text-muted-foreground">
-              Essa categoria está sem peças nesta prévia. Veja a vitrine inteira ou pergunte para a Eliane — ela tem
-              muito mais na loja.
+              Não há peças cadastradas nessa categoria no momento. Volte à vitrine completa ou pergunte à {STORE.owner} sobre as opções disponíveis.
             </p>
             <button type="button" onClick={() => setCategory("todas")} className="btn-gold">
               Ver todas as peças

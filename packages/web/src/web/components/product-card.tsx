@@ -51,7 +51,7 @@ export function ProductCard({
           </span>
         </div>
         <span className="font-sans text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-          {variant === "horizontal" ? "Ver peça →" : "Detalhes →"}
+          {variant === "horizontal" ? "Ver e pedir →" : "Ver e pedir →"}
         </span>
       </div>
     </div>

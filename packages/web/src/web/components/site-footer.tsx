@@ -1,4 +1,4 @@
-import { Instagram, MapPin, Clock, Info } from "lucide-react";
+import { MapPin, Clock, Info } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { STORE, whatsappLink } from "../lib/whatsapp";
 
@@ -7,7 +7,7 @@ const navLinks = [
   { href: "/vestuario", label: "Vestuário" },
   { href: "/lingerie", label: "Lingerie" },
   { href: "#como-comprar", label: "Como comprar" },
-  { href: "#cuidados", label: "Garantia e cuidados" },
+  { href: "#cuidados", label: "Compra e cuidados" },
   { href: "#sobre", label: "A Nany" },
   { href: "#duvidas", label: "Dúvidas" },
 ];
@@ -22,8 +22,7 @@ export function SiteFooter({ title = "Semijoias" }: { title?: string }) {
             <span className="font-sans text-[10px] tracking-[0.28em] text-gold/80 uppercase">{title}</span>
           </span>
           <p className="max-w-sm font-sans text-[13.5px] leading-relaxed text-muted-foreground">
-            Semijoias de prata, escolhidas à mão pela {STORE.owner}. Atendimento pessoal, preço na
-            etiqueta e entrega combinada direto no WhatsApp.
+            Semijoias, vestuário e lingerie da Nany. Consulte disponibilidade, detalhes e formas de entrega com a {STORE.owner} pelo WhatsApp.
           </p>
           <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-gold self-start">
             <SiWhatsapp className="size-4" />
@@ -57,7 +56,7 @@ export function SiteFooter({ title = "Semijoias" }: { title?: string }) {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={link.href.startsWith("#") && title !== "Semijoias" ? `/${link.href}` : link.href}
               className="font-sans text-[13.5px] text-foreground/80 transition-colors hover:text-gold-soft"
             >
               {link.label}

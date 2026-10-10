@@ -31,6 +31,7 @@ export const vestuario = {
         categories: clothingCategories as any[],
         products: list,
         total: list.length,
+        catalogTotal: clothingProducts.length,
         featured: clothingProducts.filter((p: any) => p.featured).slice(0, 3),
       };
     }),

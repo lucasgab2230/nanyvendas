@@ -7,18 +7,20 @@
  */
 
 export const STORE = {
-  name: "Nany Semijoias e Vestuàrio",
+  name: "Nany Semijoias, Vestuário e Lingerie",
   owner: "Eliane",
   /** Número no formato internacional, só dígitos — é ele que vai no wa.me. */
   whatsapp: "5542988089633",
   whatsappLabel: "+55 42 98808-9633",
   city: "Guarapuava — PR",
   hours: "Segunda a sábado, das 9h às 12h",
-  instagram: "https://www.instagram.com/",
 } as const;
 
 /** Mensagem que abre qualquer conversa vinda do site. */
-export const DEFAULT_MESSAGE = `Olá, ${STORE.owner}! Vim pelo site da ${STORE.name} e gostaria de saber mais sobre as semijoias.`;
+export const DEFAULT_MESSAGE = `Olá, ${STORE.owner}! Vim pelo site da ${STORE.name} e gostaria de conhecer as peças e confirmar a disponibilidade.`;
+
+/** Saudação acolhedora para quem está fazendo a primeira visita ao site. */
+export const FIRST_VISIT_MESSAGE = `Olá, ${STORE.owner}! Estou conhecendo a Nany pela primeira vez e gostaria de uma ajuda para escolher. Você pode me mostrar as peças disponíveis e confirmar valores e entrega?`;
 
 /** Formata o preço do jeito que a cliente lê em voz alta. */
 export function formatPrice(value: number): string {
@@ -38,6 +40,10 @@ export function productMessage(product: { name: string; price: number | null; sl
 /** Monta o link wa.me com a mensagem já codificada. */
 export function whatsappLink(message: string = DEFAULT_MESSAGE): string {
   return `https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`;
+}
+
+export function firstVisitWhatsappLink(): string {
+  return whatsappLink(FIRST_VISIT_MESSAGE);
 }
 
 export function productWhatsappLink(product: { name: string; price: number | null; slug: string }): string {

@@ -1,16 +1,15 @@
-import { ShieldCheck, Truck, Gift, Sparkles } from "lucide-react";
+import { Camera, Tag, MessageCircle } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
-import { STORE, whatsappLink } from "../lib/whatsapp";
+import { STORE, firstVisitWhatsappLink } from "../lib/whatsapp";
 
 const trust = [
-  { icon: ShieldCheck, label: "Prata com alta durabilidade e", hint: "com garantia" },
-  { icon: Gift, label: "Embalagem de presente", hint: "inclusa" },
-  { icon: Truck, label: "Entrega na região", hint: "e envio pelos Correios" },
+  { icon: Camera, label: "Fotos das peças", hint: "reais e detalhadas" },
+  { icon: Tag, label: "Preço transparente", hint: "na etiqueta ou com a Eliane" },
+  { icon: MessageCircle, label: "Pedido sem cadastro", hint: "direto pelo WhatsApp" },
 ];
 
 /**
- * Banner de abertura: a maleta aberta com as semijoias é o primeiro impacto —
- * por enquanto como arte vetorial, no mesmo espaço onde a foto real vai entrar.
+ * Banner de abertura com a foto real da maleta e acesso rápido à vitrine.
  */
 export function Hero({ pieceCount }: { pieceCount?: number }) {
   return (
@@ -43,20 +42,17 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
             className="rise mt-6 max-w-lg font-sans text-[15px] leading-relaxed text-muted-foreground"
             style={{ animationDelay: "260ms" }}
           >
-            Peças de prata, preço na etiqueta e atendimento direto com a {STORE.owner}. Você escolhe a
-            peça aqui e finaliza no WhatsApp — sem cadastro, sem complicação.
+            Conheça as peças pelas fotos e confira o preço quando ele estiver na etiqueta. A {STORE.owner} confirma
+            disponibilidade, valores e entrega pelo WhatsApp — sem cadastro.
           </p>
 
           <div className="rise mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "360ms" }}>
             <a href="#catalogo" className="btn-gold">
-              Ver a vitrine{typeof pieceCount === "number" ? ` (${pieceCount} peças)` : ""}
+              Ver semijoias{typeof pieceCount === "number" ? ` (${pieceCount} peças)` : ""}
             </a>
-            <a href="/vestuario" className="btn-ghost-gold">
-              Ver Coleção de Vestuário
-            </a>
-            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold">
+            <a href={firstVisitWhatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold">
               <SiWhatsapp className="size-3.5" />
-              Tirar uma dúvida
+              Primeira visita? Fale com a Eliane
             </a>
           </div>
 
@@ -91,19 +87,18 @@ export function Hero({ pieceCount }: { pieceCount?: number }) {
                   A maleta da Nany
                 </span>
                 <span className="font-sans text-[11px] text-muted-foreground">
-              </span>
+                  Escolha uma peça da vitrine e confirme os detalhes pelo WhatsApp.
+                </span>
               </div>
 
 
             </div>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 font-sans text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-            <span>Prata de alta durabilidade</span>
+          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 font-sans text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
+            <span>Preço visível ou sob consulta</span>
             <span className="text-gold/50">◆</span>
-            <span>Garantia de 6 meses</span>
-            <span className="text-gold/50">◆</span>
-            <span>Pix e cartão</span>
+            <span>Disponibilidade confirmada antes do pedido</span>
             <span className="text-gold/50">◆</span>
             <span>{STORE.hours}</span>
           </div>

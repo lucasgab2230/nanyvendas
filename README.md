@@ -1,44 +1,40 @@
 # Nany Semijoias — site da loja
 
-Landing page + catálogo de semijoias (tema escuro dourado) com pedido pelo WhatsApp.
-Dona da loja: Eliane. Número de atendimento: **+55 42 98808-9633**.
+Site da Nany (Eliane), em Guarapuava — PR. A experiência destaca as semijoias fotografadas e direciona pedidos e dúvidas ao WhatsApp **+55 42 98808-9633**.
 
-Esta é a versão de **apresentação**: as fotos reais ainda não estão no site, então cada peça e o banner
-mostram uma arte dourada temporária marcada como espaço da foto.
+## Situação atual do catálogo
+
+- **Semijoias:** 35 itens cadastrados com fotos reais na pasta `packages/web/public/images/images/`. Preços são mostrados quando legíveis na etiqueta; nos demais casos, a cliente consulta a Eliane. A foto do porta-joias aparece no banner e não é um produto.
+- **Vestuário e lingerie:** as páginas estão ativas, mas os produtos de demonstração foram removidos porque não tinham fotos/preços confirmados. Cada página convida a cliente a pedir as opções atuais pelo WhatsApp. Cadastre itens reais em `packages/web/src/api/catalog/clothing-products.ts` e `lingerie-products.ts` quando houver informações aprovadas pela loja.
+- Estoque, entrega, pagamento, composição, garantia e trocas não são prometidos pelo site; são confirmados para cada pedido com a loja.
 
 ## Comandos
 
-- `bun run dev` — sobe o site (porta fixa em `__ports.cjs`).
-- `bun run build` — build de produção de todos os pacotes.
-- `bun run lint` e `bun run typecheck` — validação do projeto.
+- `pnpm run dev` — inicia o Vite na porta declarada em `__ports.cjs`.
+- `pnpm run build` — build dos pacotes do monorepo.
+- `pnpm run typecheck` — validação TypeScript do monorepo.
+- `pnpm --filter @template/web build` — build e typecheck do pacote web.
 
-## Onde mexer depois
+## Onde atualizar
 
 | O que | Arquivo |
-|-------|---------|
-| Peças, preços, descrições, selos | `packages/web/src/api/catalog/products.ts` |
-| Categorias do filtro | `packages/web/src/api/catalog/products.ts` (`categories`) |
-| Número do WhatsApp, mensagem padrão, e-mail/horário da loja | `packages/web/src/web/lib/whatsapp.ts` (`STORE`) |
-| Banner da maleta (a arte que ocupa o lugar da foto) | `packages/web/src/web/components/suitcase-art.tsx` |
-| Arte dourada das peças | `packages/web/src/web/components/jewel-art.tsx` |
+|---|---|
+| Semijoias, preços, descrições e caminhos das imagens | `packages/web/src/api/catalog/products.ts` |
+| Fotos reais do catálogo | `packages/web/public/images/images/` |
+| Foto do porta-joias no banner | `packages/web/src/web/components/hero.tsx` |
+| Vestuário e lingerie (após confirmação dos dados) | `packages/web/src/api/catalog/clothing-products.ts` e `lingerie-products.ts` |
+| Número, horários e mensagens do WhatsApp | `packages/web/src/web/lib/whatsapp.ts` |
+| Texto das páginas, experiência e perguntas frequentes | `packages/web/src/web/pages/` e `packages/web/src/web/components/sections.tsx` |
 | Cores, fontes e estilos | `packages/web/src/web/styles.css` + `design.md` |
+| Rotas da prévia | `packages/web/public/manus-routes.json` |
 
-## Colocar as fotos reais
+## Fluxo de compra
 
-1. Salve a foto em `packages/web/public/images/` (ex.: `maleta.jpg`, `anel-luna.jpg`). Fotos quadradas de
-   preferência, 1200 × 1200.
-2. No banner: troque o `<SuitcaseArt />` em `packages/web/src/web/components/hero.tsx` por
-   `<img src="/images/maleta.jpg" alt="Maleta da Nany Semijoias" className="w-full object-cover" />`.
-3. Nas peças: em `packages/web/src/api/catalog/products.ts`, preencha o campo `image` da peça com o caminho
-   (`image: "/images/anel-luna.jpg"`). Enquanto estiver `null`, o site desenha a arte dourada da categoria.
-
-A mensagem do WhatsApp já vai preenchida com o nome e o preço da peça:
-*"Olá, Eliane! Vi no site a peça \*Anel Solitário Luna\* (R$ 149,90) e gostaria de saber se ela está disponível."*
+1. A cliente abre uma semijoia e confere fotos, descrição e o preço, se legível.
+2. O botão de pedido abre o WhatsApp com a peça identificada; quando o preço não está confirmado, a mensagem pede que a loja o informe.
+3. A cliente confirma disponibilidade, dados do produto, pagamento e entrega diretamente com Eliane antes de concluir.
+4. Para a primeira visita há um convite específico de boas-vindas; não há desconto, brinde ou outra condição comercial anunciada sem confirmação.
 
 ## Arquitetura
 
-Monorepo (Bun + Turborepo). O pacote `packages/web` tem o site (React + Vite + Tailwind) e a API (oRPC)
-no mesmo serviço, na porta de `__ports.cjs`; o endpoint de saúde é `/api/health`. O catálogo é servido por
-`catalog.list` (`packages/web/src/api/routes/catalog.ts`) e consumido pelo hook `useCatalog`
-(`packages/web/src/web/queries/catalog.ts`). O pacote `mobile` é o cliente Expo e `desktop` o shell Electron
-— nenhum dos dois foi tocado neste trabalho.
+Monorepo com `packages/web` em React, Vite, Tailwind e API oRPC. `catalog.list` lê `packages/web/src/api/catalog/products.ts`; Vestuário e Lingerie usam rotas e tipos próprios (`api/routes/vestuario.ts`, `api/routes/lingerie.ts`). As consultas da interface ficam em `packages/web/src/web/queries/`. O pacote `mobile` é o cliente Expo e `desktop` o shell Electron.
