@@ -1,0 +1,135 @@
+.announcement {
+  background: #eee5da;
+  color: #635346;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+.announcement-inner {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  justify-content: space-between;
+}
+.announcement-inner > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  border-bottom: 1px solid #e5ded5;
+  background: rgb(252 250 247 / 97%);
+  backdrop-filter: blur(12px);
+}
+.header-inner {
+  display: flex;
+  height: 88px;
+  gap: 32px;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-link {
+  flex-shrink: 0;
+}
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  line-height: 1;
+  color: var(--foreground);
+}
+.brand-name {
+  position: relative;
+  font: 500 53px/0.85 var(--font-display);
+  letter-spacing: -0.06em;
+}
+.brand-name > span {
+  position: absolute;
+  top: -2px;
+  right: -20px;
+  color: var(--accent);
+  font-size: 27px;
+  font-weight: 400;
+}
+.brand-caption {
+  margin-top: 10px;
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  font-weight: 500;
+}
+.main-nav {
+  display: flex;
+  gap: 29px;
+  margin-left: auto;
+}
+.main-nav > a {
+  display: inline-flex;
+  position: relative;
+  min-height: 44px;
+  align-items: center;
+  color: #6b6259;
+  font-size: 15px;
+}
+.main-nav > a::after {
+  position: absolute;
+  content: "";
+  height: 1px;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.2s;
+}
+.main-nav > a:hover,
+.main-nav > .nav-active {
+  color: var(--accent);
+}
+.main-nav > .nav-active::after,
+.main-nav > a:hover::after {
+  width: 100%;
+}
+.main-nav > .mobile-contact {
+  display: none;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.header-divider {
+  width: 1px;
+  height: 23px;
+  margin-inline: 11px;
+  background: var(--border);
+}
+.header-contact {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  color: var(--accent);
+  font-size: 14px;
+}
+.header-contact:hover {
+  color: var(--accent-hover);
+}
+.selection-count {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  padding: 0 3px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+}
+.menu-trigger {
+  display: none;
+}

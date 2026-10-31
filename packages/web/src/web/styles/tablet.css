@@ -1,0 +1,267 @@
+@media (min-width: 1500px) {
+  .hero-inner {
+    padding-top: 55px;
+    padding-bottom: 65px;
+  }
+}
+@media (max-width: 1100px) {
+  .header-inner {
+    gap: 18px;
+  }
+  .main-nav {
+    gap: 20px;
+  }
+  .main-nav > a {
+    font-size: 13px;
+  }
+  .header-divider {
+    margin-inline: 5px;
+  }
+  .header-contact {
+    font-size: 12px;
+  }
+  .hero-inner {
+    gap: 35px;
+  }
+  .hero h1 {
+    font-size: 73px;
+  }
+  .hero-actions {
+    gap: 13px;
+    flex-wrap: wrap;
+  }
+  .hero-help {
+    display: none;
+  }
+  .hero-visual {
+    height: 420px;
+  }
+  .hero-photo-frame {
+    height: 370px;
+  }
+  .orbit-one {
+    height: 390px;
+  }
+  .orbit-two {
+    height: 380px;
+  }
+  .hero-product-note {
+    left: -5px;
+    padding: 15px;
+    gap: 12px;
+  }
+  .hero-product-note strong {
+    font-size: 23px;
+  }
+  .hero-photo-label {
+    left: -19px;
+  }
+  .hero-side-note {
+    right: -9px;
+  }
+  .benefits-inner > span + span {
+    padding-left: 35px;
+  }
+  .catalog-heading-note {
+    display: none;
+  }
+  .category-pill {
+    padding-inline: 13px;
+  }
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .other-collections {
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .other-collections-label {
+    grid-column: 1 / -1;
+    margin-bottom: 3px;
+  }
+  .other-collections-label h2 {
+    font-size: 34px;
+  }
+  .buy-steps {
+    margin-inline: 10px;
+    gap: 35px;
+  }
+  .about-section {
+    gap: 55px;
+  }
+  .about-visual {
+    margin-left: 0;
+  }
+  .about-copy h2 {
+    font-size: 44px;
+  }
+  .faq-layout {
+    gap: 45px;
+  }
+  .final-cta h2 {
+    font-size: 29px;
+  }
+  .final-sparkle {
+    display: none;
+  }
+  .footer-main {
+    gap: 40px;
+  }
+}
+@media (max-width: 900px) {
+  .header-inner {
+    height: 79px;
+  }
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 12px 27px 20px;
+    margin: 0;
+    border-bottom: 1px solid var(--border);
+    background: #fcfaf7;
+    box-shadow: 0 15px 30px #3c2f2010;
+  }
+  .main-nav.main-nav-open {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .main-nav > a {
+    min-height: 49px;
+    font-size: 15px;
+    border-bottom: 1px solid var(--border);
+  }
+  .main-nav > a::after {
+    display: none;
+  }
+  .main-nav > .mobile-contact {
+    display: flex;
+    gap: 9px;
+    border-bottom: 0;
+    color: var(--accent);
+  }
+  .menu-trigger {
+    display: inline-flex;
+  }
+  .header-contact,
+  .header-divider {
+    display: none;
+  }
+  .hero-inner {
+    gap: 20px;
+    padding-block: 37px 50px;
+  }
+  .hero h1 {
+    font-size: 68px;
+  }
+  .hero .eyebrow {
+    font-size: 9px;
+  }
+  .hero-description {
+    font-size: 14px;
+  }
+  .hero-visual {
+    height: 395px;
+  }
+  .hero-photo-frame {
+    width: 91%;
+    height: 350px;
+    right: 0;
+  }
+  .hero-product-note {
+    left: -3px;
+    bottom: 0;
+    padding: 13px;
+  }
+  .hero-product-note strong {
+    font-size: 21px;
+  }
+  .hero-product-note > div > span {
+    font-size: 8px;
+  }
+  .hero-product-note .note-icon {
+    display: none;
+  }
+  .hero-photo-label {
+    display: none;
+  }
+  .hero-side-note {
+    display: none;
+  }
+  .hero-sparkle.sparkle-one {
+    left: 0;
+    font-size: 50px;
+  }
+  .benefits-inner {
+    justify-content: space-between;
+  }
+  .benefits-inner > span {
+    gap: 10px;
+  }
+  .benefits-inner > span + span {
+    padding-left: 16px;
+  }
+  .benefits-inner small {
+    font-size: 10px;
+  }
+  .catalog-section {
+    padding-top: 50px;
+  }
+  .catalog-filter-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 7px;
+  }
+  .catalog-sort {
+    align-self: flex-end;
+  }
+  .about-section {
+    gap: 35px;
+    padding-block: 65px;
+  }
+  .about-copy h2 {
+    font-size: 38px;
+  }
+  .about-copy > p:not(.eyebrow) {
+    font-size: 14px;
+  }
+  .about-image {
+    height: 345px;
+  }
+  .about-flower {
+    right: -18px;
+    font-size: 67px;
+  }
+  .faq-layout {
+    gap: 30px;
+    grid-template-columns: 0.7fr 1.3fr;
+  }
+  .faq-heading h2 {
+    font-size: 42px;
+  }
+  .final-cta-inner {
+    flex-wrap: wrap;
+  }
+  .final-cta .btn-primary {
+    flex-shrink: 0;
+    padding-inline: 15px;
+  }
+  .footer-main {
+    gap: 30px;
+    grid-template-columns: 1fr 0.75fr 1.2fr;
+  }
+  .footer-contact > p {
+    font-size: 11px;
+  }
+  .collection-hero {
+    gap: 35px;
+  }
+  .collection-consult {
+    padding-inline: 23px;
+  }
+}

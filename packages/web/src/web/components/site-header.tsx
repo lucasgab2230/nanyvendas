@@ -1,105 +1,160 @@
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Heart, MapPin, Menu, Search, X } from "lucide-react";
+import { Link, useLocation } from "wouter";
 import { SiWhatsapp } from "react-icons/si";
 import { STORE, whatsappLink } from "../lib/whatsapp";
+import { useSelection } from "./selection-provider";
 
-const links = [
-  { href: "/", label: "Semijoias" },
-  { href: "/vestuario", label: "Vestuário" },
-  { href: "/lingerie", label: "Lingerie" },
-  { href: "#como-comprar", label: "Como comprar" },
-  { href: "#cuidados", label: "Compra e cuidados" },
-  { href: "#sobre", label: "A Nany" },
-  { href: "#duvidas", label: "Dúvidas" },
-];
+export function Brand({ light = false }: { light?: boolean }) {
+  return (
+    <span className={`brand ${light ? "brand-light" : ""}`}>
+      <span className="brand-name">
+        nany<span aria-hidden="true">✧</span>
+      </span>
+      <span className="brand-caption">SEMIJOIAS & MAIS</span>
+    </span>
+  );
+}
 
 export function SiteHeader({ title = "Semijoias" }: { title?: string }) {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [location] = useLocation();
+  const selection = useSelection();
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    setOpen(false);
+  }, [location]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    const onOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !header.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onOutside);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onOutside);
+    };
+  }, [open]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-[80] transition-all duration-500 ${
-        scrolled ? "border-b border-gold/15 bg-[#0a0908]/88 backdrop-blur-md" : "border-b border-transparent"
-      }`}
-    >
-      <div className="shell flex h-[70px] items-center justify-between gap-6">
-        <a href="/" className="flex items-baseline gap-3">
-          <span className="font-display text-[26px] leading-none text-foreground">
-            Nany<span className="gold-text">.</span>
+    <>
+      <div className="announcement">
+        <div className="shell announcement-inner">
+          <span>
+            <MapPin size={13} aria-hidden="true" /> De Guarapuava, com carinho para você
           </span>
-          <span className="hidden font-sans text-[10px] tracking-[0.28em] text-gold/80 uppercase sm:block">
-            {title}
-          </span>
-        </a>
-
-        <nav aria-label="Navegação principal" className="hidden items-center gap-8 lg:flex">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href.startsWith("#") && title !== "Semijoias" ? `/${link.href}` : link.href}
-              className="font-sans text-[12px] tracking-[0.12em] text-foreground/70 uppercase transition-colors hover:text-gold-soft"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost-gold hidden !px-5 !py-2.5 sm:inline-flex"
-          >
-            <SiWhatsapp className="size-3.5" />
-            Falar com a {STORE.owner}
-          </a>
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Falar no WhatsApp"
-            className="btn-ghost-gold !px-3 !py-2.5 sm:hidden"
-          >
-            <SiWhatsapp className="size-4" />
-          </a>
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={open}
-            aria-controls="site-mobile-nav"
-            className="flex size-10 items-center justify-center border border-gold/22 text-gold-soft lg:hidden"
-          >
-            {open ? <X className="size-4" strokeWidth={1.6} /> : <Menu className="size-4" strokeWidth={1.6} />}
-          </button>
+          <span className="announcement-extra">Escolha no site. Combine pelo WhatsApp.</span>
         </div>
       </div>
-
-      {open && (
-        <div className="border-t border-gold/15 bg-[#0a0908]/97 backdrop-blur-md lg:hidden">
-          <nav id="site-mobile-nav" aria-label="Navegação principal" className="shell flex flex-col py-2">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href.startsWith("#") && title !== "Semijoias" ? `/${link.href}` : link.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-gold/10 py-4 font-sans text-[13px] tracking-[0.14em] text-foreground/80 uppercase last:border-0 hover:text-gold-soft"
-              >
-                {link.label}
-              </a>
-            ))}
+      <header className="site-header" ref={header}>
+        <div className="shell header-inner">
+          <Link href="/" className="brand-link" aria-label="Nany Semijoias & Mais — página inicial">
+            <Brand />
+          </Link>
+          <nav
+            id="main-navigation"
+            aria-label="Navegação principal"
+            className={`main-nav ${open ? "main-nav-open" : ""}`}
+          >
+            <a
+              href="/#catalogo"
+              className={title === "Semijoias" ? "nav-active" : ""}
+              onClick={() => setOpen(false)}
+              aria-current={title === "Semijoias" ? "page" : undefined}
+            >
+              Semijoias
+            </a>
+            <Link
+              href="/vestuario"
+              className={title === "Vestuário" ? "nav-active" : ""}
+              aria-current={title === "Vestuário" ? "page" : undefined}
+            >
+              Vestuário
+            </Link>
+            <Link
+              href="/lingerie"
+              className={title === "Lingerie" ? "nav-active" : ""}
+              aria-current={title === "Lingerie" ? "page" : undefined}
+            >
+              Lingerie
+            </Link>
+            <a href="/#como-comprar" onClick={() => setOpen(false)}>
+              Como comprar
+            </a>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mobile-contact"
+            >
+              <SiWhatsapp size={17} aria-hidden="true" /> Falar com a {STORE.owner}
+            </a>
           </nav>
+          <div className="header-actions">
+            <a
+              className="icon-button header-search"
+              href="/#catalogo"
+              aria-label="Buscar na vitrine"
+              onClick={(event) => {
+                const input = document.getElementById("catalog-search");
+                if (location === "/" && input) {
+                  event.preventDefault();
+                  input.focus({ preventScroll: true });
+                  document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              <Search size={20} strokeWidth={1.6} aria-hidden="true" />
+            </a>
+            <button
+              type="button"
+              className="icon-button selection-trigger"
+              aria-label={`Abrir sua seleção${selection.ids.length ? `, ${selection.ids.length} ${selection.ids.length === 1 ? "peça" : "peças"}` : ""}`}
+              onClick={() => {
+                setOpen(false);
+                selection.setOpen(true);
+              }}
+            >
+              <Heart size={21} strokeWidth={1.6} aria-hidden="true" />
+              {selection.ids.length > 0 && (
+                <span className="selection-count" aria-hidden="true">
+                  {selection.ids.length}
+                </span>
+              )}
+            </button>
+            <span className="header-divider" aria-hidden="true" />
+            <a
+              className="header-contact"
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SiWhatsapp size={17} aria-hidden="true" />
+              <span>Fale com a Eliane</span>
+            </a>
+            <button
+              type="button"
+              ref={menuButton}
+              className="icon-button menu-trigger"
+              aria-label={open ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={open}
+              aria-controls="main-navigation"
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}
+            </button>
+          </div>
         </div>
-      )}
-    </header>
+      </header>
+    </>
   );
 }

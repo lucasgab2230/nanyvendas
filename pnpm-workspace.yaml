@@ -1,0 +1,9 @@
+packages:
+  - packages/*
+
+# Only these packages need native build scripts. Electron's binary is not
+# required to run or build the storefront; desktop packaging is opt-in.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  electron: false
