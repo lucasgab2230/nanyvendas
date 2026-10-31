@@ -4,7 +4,7 @@ Vitrine da Eliane, em Guarapuava — PR. Fotos reais, navegação pensada para c
 
 ## Rodar o site
 
-Requisitos: **Node.js 22.22 ou superior compatível** e **pnpm 12.6.0**. Se não tiver pnpm instalado, use `npx --yes pnpm@12.6.0` no lugar de `pnpm` nos comandos abaixo.
+Requisitos: **Node.js 22.x (22.22.2 ou superior nessa versão principal)** e **pnpm 12.6.0**. Se não tiver pnpm instalado, use `npx --yes pnpm@12.6.0` no lugar de `pnpm` nos comandos abaixo.
 
 ```bash
 pnpm install --frozen-lockfile
@@ -24,7 +24,13 @@ pnpm start
 
 Opcionalmente, após o build, `pnpm exec pm2 start ecosystem.config.cjs` inicia o mesmo servidor com PM2. A configuração carrega o `.env` da raiz caso exista.
 
-> Hospede em um serviço que execute Node.js e encaminhe as rotas `/api/*` para o mesmo processo. Publicar apenas a pasta `dist/` em hospedagem estática não disponibiliza a API.
+> Em hospedagem Node.js tradicional, encaminhe `/api/*` para o mesmo processo. Publicar apenas a pasta `dist/` em hospedagem estática não disponibiliza a API.
+
+### Deploy na Vercel
+
+O repositório inclui o build da interface **e uma função serverless para a API**. Use **Root Directory `./`**, **Framework Vite** e **Node.js 22.x**; o `vercel.json` define a instalação com pnpm, o build e a saída `packages/web/dist`. Não use `pnpm start` na Vercel.
+
+Também há configuração para Root Directory `packages/web`, com saída `dist` e acesso aos arquivos externos do workspace. Veja [o passo a passo e o diagnóstico de erros na Vercel](DEPLOY_VERCEL.md), incluindo o teste de `/api/health` após publicar.
 
 ## O que funciona
 
@@ -68,7 +74,7 @@ O gerador preserva os originais e produz imagens quadradas de 480, 960 e 1600 px
 
 ```bash
 pnpm typecheck       # verifica de verdade os projetos TS de aplicação e servidor
-pnpm test            # catálogo, arquivos de imagens, filtros, seleção, WhatsApp e API HTTP
+pnpm test            # catálogo, imagens, filtros, seleção, WhatsApp, API e entradas Vercel em HTTP
 pnpm build           # typecheck + build de produção
 ```
 

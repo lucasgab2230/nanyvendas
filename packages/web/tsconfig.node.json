@@ -32,6 +32,9 @@
 	"include": [
 		"vite.config.ts",
 		"src/__server.ts",
-		"src/server.ts"
+		"src/server.ts",
+		"api/**/*.mjs",
+		"../../api/**/*.mjs",
+		"tests/vercel.test.ts"
 	]
 }

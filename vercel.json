@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npx --yes pnpm@12.6.0 install --filter @template/web... --filter nanyvendas --frozen-lockfile",
+  "buildCommand": "npx --yes pnpm@12.6.0 run build",
+  "outputDirectory": "packages/web/dist",
+  "functions": {
+    "api/index.mjs": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/((?!api(?:/|$))[^.]*)",
+      "destination": "/index.html"
+    }
+  ]
+}
