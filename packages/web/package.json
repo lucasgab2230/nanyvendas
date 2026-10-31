@@ -2,6 +2,9 @@
   "name": "@template/web",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "exports": {
     ".": "./src/api/index.ts"
   },
@@ -9,14 +12,16 @@
     "build": "pnpm typecheck && vite build",
     "dev": "vite --host 0.0.0.0",
     "start": "tsx src/server.ts",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
+    "typecheck": "pnpm build:api && tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
     "preview": "tsx src/server.ts",
     "db:generate": "bun --env-file=../../.env drizzle-kit generate",
     "db:migrate": "bun --env-file=../../.env drizzle-kit migrate",
     "db:push": "bun --env-file=../../.env drizzle-kit push",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "pnpm build:api && tsx --test tests/*.test.ts",
     "test:e2e": "playwright test",
-    "images:optimize": "node tools/optimize-images.mjs"
+    "images:optimize": "node tools/optimize-images.mjs",
+    "build:api": "node tools/build-api.mjs",
+    "vercel-build": "pnpm build:api"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.0",
