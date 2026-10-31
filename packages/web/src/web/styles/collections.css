@@ -1,0 +1,96 @@
+/* As outras coleções têm um caminho honesto até as opções reais da loja. */
+.collection-page {
+  padding-top: 34px;
+  padding-bottom: 70px;
+}
+.breadcrumb {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #715f4c;
+  font-size: 12px;
+}
+.breadcrumb a {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+}
+.collection-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  padding-block: 55px 65px;
+}
+.collection-hero h1 {
+  margin-top: 16px;
+  font-size: clamp(42px, 5vw, 68px);
+}
+.collection-hero p:not(.eyebrow) {
+  max-width: 460px;
+  margin-top: 23px;
+  color: #715f4c;
+  font-size: 16px;
+  line-height: 1.85;
+}
+.collection-hero .btn-primary {
+  margin-top: 25px;
+}
+.collection-consult {
+  display: flex;
+  min-height: 330px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  border: 1px solid #e0d0bc;
+  border-radius: 160px 160px 9px 9px;
+  background: #f0e6d9;
+  text-align: center;
+}
+.collection-consult > svg {
+  color: #715f4c;
+}
+.collection-consult h2 {
+  max-width: 260px;
+  margin-top: 25px;
+  font-size: 32px;
+}
+.collection-hero .collection-consult p,
+.collection-loading {
+  margin-top: 14px;
+  font-size: 14px;
+}
+.collection-options-heading {
+  margin-block: 20px 30px;
+  font-size: 36px;
+}
+.collection-back {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 25px;
+  border-top: 1px solid var(--border);
+}
+.collection-back p {
+  color: #715f4c;
+  font-size: 14px;
+}
+.not-found {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-height: 60vh;
+  padding-block: 85px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.not-found h1 {
+  font-size: 54px;
+}
+.not-found p {
+  max-width: 450px;
+  color: #715f4c;
+}

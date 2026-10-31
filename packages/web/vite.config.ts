@@ -21,6 +21,14 @@ export default defineConfig(({ mode }) => {
       honoDevPlugin(),
       react(),
       runableAnalyticsPlugin(),
+      {
+        name: "quiet-local-analytics",
+        transformIndexHtml: {
+          order: "post",
+          // Keep analytics, but never cover the storefront with its local debug widget.
+          handler: (html) => html.replace(/\sdata-debug="localhost"/g, ""),
+        },
+      },
       tailwind(),
       assetOptimizerPlugin(),
     ],
@@ -30,10 +38,11 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      host: "0.0.0.0",
       port: ports.website,
       strictPort: true,
       allowedHosts: true,
-      hmr: { overlay: false },
+      hmr: { overlay: true },
       cors: false,
     },
   };

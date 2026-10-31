@@ -6,16 +6,20 @@
     ".": "./src/api/index.ts"
   },
   "scripts": {
-    "build": "tsc --noEmit && vite build",
-    "dev": "vite",
-    "start": "bun src/__server.ts",
-    "typecheck": "tsc --noEmit",
-    "preview": "bun run build && vite preview",
+    "build": "pnpm typecheck && vite build",
+    "dev": "vite --host 0.0.0.0",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
+    "preview": "tsx src/server.ts",
     "db:generate": "bun --env-file=../../.env drizzle-kit generate",
     "db:migrate": "bun --env-file=../../.env drizzle-kit migrate",
-    "db:push": "bun --env-file=../../.env drizzle-kit push"
+    "db:push": "bun --env-file=../../.env drizzle-kit push",
+    "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "images:optimize": "node tools/optimize-images.mjs"
   },
   "dependencies": {
+    "@hono/node-server": "^1.19.0",
     "@libsql/client": "^0.17.2",
     "@orpc/client": "^1.14.7",
     "@orpc/server": "^1.14.7",
@@ -33,10 +37,13 @@
     "react-hook-form": "^7.71.2",
     "react-icons": "^5.6.0",
     "tailwind-merge": "^3.5.0",
+    "tsx": "^4.20.0",
     "wouter": "^3.9.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.56.0",
     "@tailwindcss/vite": "^4.2.1",
     "@types/bun": "latest",
     "@types/jsdom": "^28.0.1",

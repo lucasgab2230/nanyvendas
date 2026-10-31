@@ -1,109 +1,143 @@
-import { Camera, Tag, MessageCircle } from "lucide-react";
-import { SiWhatsapp } from "react-icons/si";
-import { STORE, firstVisitWhatsappLink } from "../lib/whatsapp";
+import { ArrowDown, ArrowUpRight, Camera, Heart, MessageCircle, Sparkles } from "lucide-react";
+import type { Product } from "../../api/catalog/products";
+import { firstVisitWhatsappLink } from "../lib/whatsapp";
+import { JewelPlate } from "./jewel-plate";
 
-const trust = [
-  { icon: Camera, label: "Fotos das peças", hint: "reais e detalhadas" },
-  { icon: Tag, label: "Preço transparente", hint: "na etiqueta ou com a Eliane" },
-  { icon: MessageCircle, label: "Pedido sem cadastro", hint: "direto pelo WhatsApp" },
-];
-
-/**
- * Banner de abertura com a foto real da maleta e acesso rápido à vitrine.
- */
-export function Hero({ pieceCount }: { pieceCount?: number }) {
+export function Hero({
+  pieceCount,
+  featured,
+  onOpenProduct,
+}: {
+  pieceCount?: number;
+  featured?: Product;
+  onOpenProduct: (product: Product) => void;
+}) {
+  const image = "/images/images/20261004_193025.jpg";
   return (
-    <section id="topo" className="grain relative overflow-hidden pt-[110px] pb-16 sm:pt-[130px] sm:pb-24">
-      {/* fundo: brilho dourado + vinheta */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 left-1/2 h-[620px] w-[620px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(201,162,74,0.16),transparent_65%)]" />
-        <div className="absolute top-1/3 -right-32 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(235,215,154,0.09),transparent_68%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
-      </div>
-
-      <div className="shell relative grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-5">
-          <p className="eyebrow rise" style={{ animationDelay: "60ms" }}>
-            Semijoias • {STORE.city}
-          </p>
-
-          <h1
-            className="rise mt-5 text-[42px] leading-[1.02] sm:text-[56px] lg:text-[62px]"
-            style={{ animationDelay: "160ms" }}
-          >
-            O brilho certo
-            <br />
-            para o seu dia —
-            <br />
-            <span className="gold-text italic">e para o seu presente</span>
-          </h1>
-
-          <p
-            className="rise mt-6 max-w-lg font-sans text-[15px] leading-relaxed text-muted-foreground"
-            style={{ animationDelay: "260ms" }}
-          >
-            Conheça as peças pelas fotos e confira o preço quando ele estiver na etiqueta. A {STORE.owner} confirma
-            disponibilidade, valores e entrega pelo WhatsApp — sem cadastro.
-          </p>
-
-          <div className="rise mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "360ms" }}>
-            <a href="#catalogo" className="btn-gold">
-              Ver semijoias{typeof pieceCount === "number" ? ` (${pieceCount} peças)` : ""}
-            </a>
-            <a href={firstVisitWhatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold">
-              <SiWhatsapp className="size-3.5" />
-              Primeira visita? Fale com a Eliane
-            </a>
-          </div>
-
-          <dl className="rise mt-10 grid gap-5 sm:grid-cols-3" style={{ animationDelay: "460ms" }}>
-            {trust.map((item) => (
-              <div key={item.label} className="flex flex-col gap-1 border-t border-gold/18 pt-4">
-                <item.icon className="size-4 text-gold" strokeWidth={1.5} />
-                <dt className="font-sans text-[12px] tracking-[0.06em] text-foreground/90">{item.label}</dt>
-                <dd className="font-sans text-[11px] text-muted-foreground">{item.hint}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        {/* Banner — espaço da foto da maleta */}
-        <div className="rise lg:col-span-7" style={{ animationDelay: "300ms" }}>
-          <div className="relative border border-gold/20 bg-[linear-gradient(160deg,#1b1812,#0c0a08)] p-3 sm:p-4">
-            <span className="absolute -top-px left-6 h-px w-24 bg-gold-soft/70" />
-
-            <div className="relative overflow-hidden border border-gold/12">
-              <div className="plate relative flex items-center justify-center">
-                <div className="sheen pointer-events-none absolute inset-0 overflow-hidden" />
-                <img
-                  src="/images/images/20261004_192042.jpg"
-                  alt="Porta-joias rosa aberto, com colares pendurados e divisórias para semijoias"
-                  className="max-h-[560px] w-full object-contain"
-                />
-              </div>
-
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/70 to-transparent px-5 pt-14 pb-5">
-                <span className="font-sans text-[10px] tracking-[0.24em] text-gold/85 uppercase">
-                  A maleta da Nany
+    <>
+      <section className="hero" id="topo">
+        <div className="shell hero-inner">
+          <div className="hero-copy">
+            <p className="eyebrow">
+              <span className="eyebrow-line" /> BELEZA NOS PEQUENOS DETALHES
+            </p>
+            <h1>
+              Seu brilho.
+              <br />
+              Seu jeito.
+              <br />
+              <em>Sua Nany.</em>
+            </h1>
+            <p className="hero-description">
+              Semijoias que dão um toque especial ao seu dia.
+              <br className="desktop-break" /> Escolha com calma e converse com quem cuida de cada
+              detalhe.
+            </p>
+            <div className="hero-actions">
+              <a href="#catalogo" className="btn-primary">
+                Encontrar minha semijoia <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+              <a
+                href={firstVisitWhatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-help"
+              >
+                Precisa de uma ajudinha?{" "}
+                <span>
+                  Fale com a Eliane <ArrowUpRight size={14} aria-hidden="true" />
                 </span>
-                <span className="font-sans text-[11px] text-muted-foreground">
-                  Escolha uma peça da vitrine e confirme os detalhes pelo WhatsApp.
-                </span>
-              </div>
-
-
+              </a>
+            </div>
+            <div className="hero-personal">
+              <span className="owner-avatar" aria-hidden="true">
+                E<span />
+              </span>
+              <p>
+                De uma escolha especial
+                <br />
+                <strong>para uma conversa de verdade.</strong>
+              </p>
+              <span className="hero-personal-rule" />
+              <Heart size={19} strokeWidth={1.3} aria-hidden="true" />
             </div>
           </div>
-
-          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 font-sans text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
-            <span>Preço visível ou sob consulta</span>
-            <span className="text-gold/50">◆</span>
-            <span>Disponibilidade confirmada antes do pedido</span>
-            <span className="text-gold/50">◆</span>
-            <span>{STORE.hours}</span>
+          <div className="hero-visual">
+            <span className="hero-orbit orbit-one" aria-hidden="true" />
+            <span className="hero-orbit orbit-two" aria-hidden="true" />
+            <span className="hero-sparkle sparkle-one" aria-hidden="true">
+              ✧
+            </span>
+            <span className="hero-sparkle sparkle-two" aria-hidden="true">
+              ✧
+            </span>
+            <div className="hero-photo-frame">
+              <JewelPlate
+                image={image}
+                alt="Brincos dourados de coração com textura canelada, uma das peças reais da Nany"
+                large
+                priority
+              />
+            </div>
+            <span className="hero-photo-label">
+              <Camera size={13} aria-hidden="true" /> FOTO REAL DA NOSSA VITRINE
+            </span>
+            <div className="hero-product-note">
+              <span className="note-icon">
+                <Sparkles size={20} strokeWidth={1.3} aria-hidden="true" />
+              </span>
+              <div>
+                <span>PARA SE APAIXONAR</span>
+                <strong>Um detalhe, tanto encanto.</strong>
+                {featured ? (
+                  <button type="button" onClick={() => onOpenProduct(featured)}>
+                    Conhecer esta peça <ArrowUpRight size={15} aria-hidden="true" />
+                  </button>
+                ) : (
+                  <a href="#catalogo">
+                    Conhecer as peças <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                )}
+              </div>
+            </div>
+            <span className="hero-side-note" aria-hidden="true">
+              ESCOLHIDAS COM CARINHO · NANY
+            </span>
           </div>
         </div>
+        <a href="#catalogo" className="hero-scroll" aria-label="Descer para a vitrine">
+          <ArrowDown size={17} aria-hidden="true" />
+        </a>
+      </section>
+      <div className="benefits-strip">
+        <div className="shell benefits-inner">
+          <span>
+            <Camera size={20} strokeWidth={1.4} aria-hidden="true" />
+            <span>
+              <strong>Peças de verdade</strong>
+              <small>Fotos reais, de pertinho</small>
+            </span>
+          </span>
+          <span>
+            <Heart size={20} strokeWidth={1.4} aria-hidden="true" />
+            <span>
+              <strong>Escolha com carinho</strong>
+              <small>
+                {pieceCount
+                  ? `${pieceCount} semijoias para conhecer`
+                  : "Encontre o que combina com você"}
+              </small>
+            </span>
+          </span>
+          <span>
+            <MessageCircle size={20} strokeWidth={1.4} aria-hidden="true" />
+            <span>
+              <strong>Atendimento pessoal</strong>
+              <small>Direto com a Eliane, sem cadastro</small>
+            </span>
+          </span>
+        </div>
       </div>
-    </section>
+    </>
   );
 }

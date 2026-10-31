@@ -1,3 +1,5 @@
+import { ORPCError } from "@orpc/server";
+import { normalizeSearch } from "../../shared/search";
 import { z } from "zod";
 import { base } from "../__core/app";
 import { categories, products, type CategorySlug } from "../catalog/products";
@@ -20,7 +22,7 @@ export const catalog = {
     )
     .handler(({ input }) => {
       const category = input?.category;
-      const search = input?.search?.trim().toLowerCase() ?? "";
+      const search = normalizeSearch(input?.search ?? "");
 
       let list = products;
       if (category && category !== "todas") {
@@ -28,8 +30,8 @@ export const catalog = {
       }
       if (search) {
         list = list.filter((p) => {
-          const haystack = `${p.name} ${p.summary} ${p.description}`.toLowerCase();
-          return haystack.includes(search);
+          const haystack = normalizeSearch(`${p.name} ${p.summary} ${p.description}`);
+          return search.split(/\s+/).every((word) => haystack.includes(word));
         });
       }
 
@@ -42,15 +44,13 @@ export const catalog = {
     }),
 
   /** Peça isolada — usada quando a vitrine abre um produto direto pela URL. */
-  get: base
-    .input(z.object({ slug: z.string() }))
-    .handler(({ input, errors }) => {
-      const product = products.find((p) => p.slug === input.slug);
-      if (!product) {
-        throw errors.NOT_FOUND({ message: "Peça não encontrada no catálogo." });
-      }
-      return product;
-    }),
+  get: base.input(z.object({ slug: z.string() })).handler(({ input }) => {
+    const product = products.find((p) => p.slug === input.slug);
+    if (!product) {
+      throw new ORPCError("NOT_FOUND", { message: "Peça não encontrada no catálogo." });
+    }
+    return product;
+  }),
 };
 
 export { categorySlugs };

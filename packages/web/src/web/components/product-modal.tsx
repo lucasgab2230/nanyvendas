@@ -1,145 +1,149 @@
-import { useEffect } from "react";
-import { X, ShieldCheck, Sparkles, Package } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Check, Heart, Info, Share2, ZoomIn, ZoomOut } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
-import type { Product } from "../../api/catalog/products";
+import type { CatalogProduct } from "./product-card";
+import { Dialog } from "./dialog";
 import { JewelPlate } from "./jewel-plate";
+import { useSelection } from "./selection-provider";
 import { STORE, formatPrice, productWhatsappLink } from "../lib/whatsapp";
+import { productUrl } from "../lib/catalog";
 
-/**
- * Detalhe da peça: nome, preço, descrição e o botão que abre o WhatsApp com a
- * mensagem já preenchida. Fecha com Esc, com o X ou clicando fora do painel.
- */
 export function ProductModal({
   product,
   categoryName,
   onClose,
+  selectable = true,
 }: {
-  product: Product | null;
+  product: CatalogProduct | null;
   categoryName?: string;
   onClose: () => void;
+  selectable?: boolean;
 }) {
+  const selection = useSelection();
+  const [zoomed, setZoomed] = useState(false);
+  const [manualShare, setManualShare] = useState(false);
   useEffect(() => {
+    setZoomed(false);
+    setManualShare(false);
+  }, [product?.slug]);
+  const saved = product ? selection.ids.includes(product.id) : false;
+
+  const share = async () => {
     if (!product) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = previous;
-    };
-  }, [product, onClose]);
-
-  if (!product) return null;
-
-  const discount =
-    product.price !== null && product.compareAtPrice && product.compareAtPrice > product.price
-      ? Math.round((1 - product.price / product.compareAtPrice) * 100)
-      : 0;
-
-  const icons = [Sparkles, ShieldCheck, Package, Sparkles];
+    const url = productUrl(product.slug);
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `${product.name} | Nany`, url });
+      } else if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url);
+        selection.notify("Link da peça copiado. É só compartilhar!");
+      } else setManualShare(true);
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === "AbortError")) setManualShare(true);
+    }
+  };
 
   return (
-    <dialog
-      open
-      aria-modal="true"
-      aria-labelledby="product-modal-title"
-      className="fixed inset-0 z-[90] m-0 h-full max-h-none w-full max-w-none bg-black/80 p-0 backdrop-blur-sm"
+    <Dialog
+      open={Boolean(product)}
+      onClose={onClose}
+      titleId="product-modal-title"
+      className="product-dialog"
     >
-      {/* área fora do painel: clicar aqui fecha a peça */}
-      <button
-        type="button"
-        aria-label="Fechar detalhes da peça"
-        onClick={onClose}
-        className="absolute inset-0 size-full cursor-default"
-      />
-
-      <div className="pointer-events-none relative flex h-full items-start justify-center overflow-y-auto p-3 sm:items-center sm:p-6">
-        <div className="rise pointer-events-auto relative my-auto w-full max-w-4xl border border-gold/20 bg-elevated shadow-[0_40px_120px_-40px_rgba(0,0,0,1)]">
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Fechar"
-            className="absolute top-3 right-3 z-20 flex size-9 items-center justify-center border border-gold/25 bg-black/50 text-gold-soft transition-colors hover:bg-gold hover:text-[#14110d]"
-          >
-            <X className="size-4" strokeWidth={1.6} />
-          </button>
-
-          <div className="grid md:grid-cols-2">
-            <JewelPlate
-              category={product.category}
-              tone={product.tone}
-              image={product.image}
-              alt={product.name}
-              className="relative min-h-[280px] w-full md:min-h-full"
-              artClassName="w-[46%] text-gold-soft/85"
-              showSlotHint={false}
+      {product && (
+        <div className="product-modal-layout">
+          <div className={`product-modal-photo ${zoomed ? "photo-zoomed" : ""}`}>
+            <JewelPlate image={product.image} alt={product.name} large />
+            <button
+              type="button"
+              className="photo-zoom-button"
+              onClick={() => setZoomed((value) => !value)}
+              aria-label={zoomed ? "Diminuir foto" : "Ver de pertinho — ampliar foto"}
+              aria-pressed={zoomed}
             >
-              {discount > 0 && (
-                <span className="absolute top-4 left-4 bg-gold px-3 py-1 font-sans text-[10px] font-semibold tracking-[0.16em] text-[#14110d] uppercase">
-                  -{discount}% hoje
-                </span>
+              {zoomed ? (
+                <ZoomOut size={18} aria-hidden="true" />
+              ) : (
+                <ZoomIn size={18} aria-hidden="true" />
               )}
-            </JewelPlate>
-
-            <div className="flex flex-col gap-5 p-6 sm:p-8">
-              <div className="flex flex-wrap items-center gap-3">
-                {categoryName && <span className="eyebrow text-[10px]">{categoryName}</span>}
-                {product.badge && (
-                  <span className="border border-gold/35 px-2 py-[3px] font-sans text-[9px] tracking-[0.18em] text-gold-soft uppercase">
-                    {product.badge}
-                  </span>
-                )}
-              </div>
-
-              <h3 id="product-modal-title" className="font-display text-4xl leading-tight text-foreground sm:text-5xl">{product.name}</h3>
-
-              <div className="flex flex-wrap items-end gap-3">
-                <span className="font-display text-3xl text-gold-soft">
-                  {product.price === null ? "Consultar preço" : formatPrice(product.price)}
-                </span>
-                {product.price !== null && product.compareAtPrice && (
-                  <span className="font-sans text-sm text-muted-foreground/70 line-through">
-                    {formatPrice(product.compareAtPrice)}
-                  </span>
-                )}
-              </div>
-
-              <p className="font-sans text-[14px] leading-relaxed text-muted-foreground">{product.description}</p>
-
-              <ul className="flex flex-col gap-2.5 border-y border-gold/12 py-4">
-                {product.highlights.map((item, index) => {
-                  const Icon = icons[index % icons.length];
-                  return (
-                    <li key={item} className="flex items-start gap-3">
-                      <Icon className="mt-[2px] size-4 shrink-0 text-gold" strokeWidth={1.5} />
-                      <span className="font-sans text-[13px] leading-relaxed text-foreground/85">{item}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div className="flex flex-col gap-3">
-                <a
-                  href={productWhatsappLink(product)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp w-full"
+              <span>{zoomed ? "Diminuir" : "Ver de pertinho"}</span>
+            </button>
+            <span className="photo-real-caption">Foto real da peça</span>
+          </div>
+          <div className="product-modal-info">
+            <p className="eyebrow">{categoryName ?? "SEMIJOIAS NANY"}</p>
+            <h2 id="product-modal-title">{product.name}</h2>
+            <p className="product-reference">Referência: {product.slug}</p>
+            <p className="modal-price">
+              {product.price === null ? "Preço sob consulta" : formatPrice(product.price)}
+            </p>
+            <p className="modal-description">{product.description}</p>
+            <ul className="product-highlights">
+              {product.highlights
+                .filter((item) => !item.startsWith("Preço da etiqueta"))
+                .map((item) => (
+                  <li key={item}>
+                    <Check size={15} aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+            </ul>
+            <div className="modal-actions">
+              <a
+                className="btn-whatsapp"
+                href={productWhatsappLink(product)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SiWhatsapp size={19} aria-hidden="true" />
+                {product.price === null ? "Consultar no WhatsApp" : "Quero esta peça"}
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+              {selectable && (
+                <button
+                  type="button"
+                  className={`btn-secondary ${saved ? "selection-saved" : ""}`}
+                  onClick={() => selection.toggle(product)}
+                  aria-pressed={saved}
                 >
-                  <SiWhatsapp className="size-4" />
-                  Pedir no WhatsApp
-                </a>
-                <p className="font-sans text-[11px] leading-relaxed text-muted-foreground">
-                  A mensagem já vai pronta para a {STORE.owner} com o nome desta peça
-                  {product.price === null ? " para consultar o valor e a disponibilidade" : ` e o preço de ${formatPrice(product.price)}`}. Confirme o valor final, a disponibilidade, as formas de pagamento e a entrega diretamente com a loja antes de concluir.
-                </p>
-              </div>
+                  <Heart size={18} fill={saved ? "currentColor" : "none"} aria-hidden="true" />
+                  {saved ? "Salva na sua seleção" : "Salvar na minha seleção"}
+                </button>
+              )}
+              {selectable && (
+                <button
+                  type="button"
+                  className="text-button modal-share"
+                  onClick={() => {
+                    void share();
+                  }}
+                >
+                  <Share2 size={16} aria-hidden="true" /> Compartilhar esta peça
+                </button>
+              )}
+              {manualShare && (
+                <label className="manual-share">
+                  Copie o link para compartilhar
+                  <input
+                    type="text"
+                    aria-label="Copie o link para compartilhar"
+                    readOnly
+                    value={productUrl(product.slug)}
+                    onFocus={(event) => event.currentTarget.select()}
+                  />
+                </label>
+              )}
             </div>
+            <p className="modal-disclaimer">
+              <Info size={17} aria-hidden="true" />
+              <span>
+                A {STORE.owner} confirma disponibilidade, valor final, pagamento e entrega com você.
+                Salvar não reserva a peça.
+              </span>
+            </p>
           </div>
         </div>
-      </div>
-    </dialog>
+      )}
+    </Dialog>
   );
 }

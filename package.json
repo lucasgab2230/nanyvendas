@@ -1,36 +1,31 @@
 {
-  "name": "sandbox-app-template",
+  "name": "nanyvendas",
   "private": true,
-  "packageManager": "pnpm@12.6.0",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "dev": "cd packages/web && pnpm exec vite",
+    "dev": "pnpm --filter @template/web dev",
     "dev:desktop": "cd packages/desktop && pnpm exec vite",
     "dev:mobile": "cd packages/mobile && pnpm exec expo start --port $(bun --print \"require('../../__ports.cjs').mobile\")",
-    "build": "turbo build",
-    "build:web": "cd packages/web && pnpm exec vite build",
-    "start": "pm2 startOrRestart ecosystem.config.cjs --update-env",
+    "build": "pnpm --filter @template/web build",
+    "build:web": "pnpm --filter @template/web build",
+    "start": "pnpm --filter @template/web start",
     "stop": "pm2 delete web-app 2>/dev/null || true",
     "kill:port": "pnpm exec internal:kill-port",
     "lint": "runkit lint",
     "lint:fix": "runkit lint --fix",
-    "typecheck": "turbo typecheck",
+    "typecheck": "pnpm --filter @template/web typecheck",
     "db:generate": "turbo db:generate",
     "db:migrate": "turbo db:migrate",
     "db:push": "turbo db:push",
-    "internal:kill-port": "lsof -t -i :$(pnpm --print \"require('./__ports.cjs').website\") | xargs kill -9"
-  },
-  "devDependencies": {
-    "@runablehq/runkit": "0.1.1",
-    "@tailwindcss/vite": "^4.3.3",
-    "@tursodatabase/api": "^1.9.2",
-    "@types/bun": "1.3.14",
-    "@vitejs/plugin-react": "^6.1.1",
-    "oxfmt": "0.54.0",
-    "turbo": "2.9.18",
-    "typescript": "7.0.1-rc"
+    "internal:kill-port": "lsof -t -i :$(pnpm --print \"require('./__ports.cjs').website\") | xargs kill -9",
+    "build:all": "turbo build",
+    "preview": "pnpm --filter @template/web preview",
+    "typecheck:all": "turbo typecheck",
+    "test": "pnpm --filter @template/web test",
+    "test:e2e": "pnpm --filter @template/web test:e2e",
+    "images:optimize": "pnpm --filter @template/web images:optimize"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1023.0",
@@ -42,5 +37,19 @@
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.0",
     "webidl-conversions": "^8.0.1"
-  }
+  },
+  "devDependencies": {
+    "@runablehq/runkit": "0.1.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tursodatabase/api": "^1.9.2",
+    "@types/bun": "1.3.14",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxfmt": "0.54.0",
+    "turbo": "2.9.18",
+    "typescript": "7.0.1-rc"
+  },
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "packageManager": "pnpm@12.6.0"
 }

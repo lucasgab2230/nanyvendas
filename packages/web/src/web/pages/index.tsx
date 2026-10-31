@@ -1,53 +1,60 @@
-import { useState } from "react";
-import type { Product } from "../../api/catalog/products";
+import { ArrowRight } from "lucide-react";
 import { useCatalog } from "../queries/catalog";
 import { SiteHeader } from "../components/site-header";
 import { Hero } from "../components/hero";
 import { Catalog } from "../components/catalog";
-import { FirstVisit, HowToBuy, PurchaseInfo, AboutOwner, Faq, FinalCta } from "../components/sections";
+import { OtherCollections, HowToBuy, AboutOwner, Faq, FinalCta } from "../components/sections";
 import { SiteFooter } from "../components/site-footer";
 import { WhatsappFab } from "../components/whatsapp-fab";
 import { ProductModal } from "../components/product-modal";
-import { STORE, whatsappLink } from "../lib/whatsapp";
+import { Dialog } from "../components/dialog";
+import { useProductLink } from "../hooks/use-product-link";
+import { usePageMeta } from "../hooks/use-page-meta";
 
-/**
- * Home da Nany Semijoias: banner com a maleta, vitrine com preços e o caminho
- * do WhatsApp em todas as seções. A peça aberta vive aqui — o grid só avisa
- * qual foi clicada.
- */
 function Index() {
-  const [selected, setSelected] = useState<Product | null>(null);
-  // Mesma chave de query usada pelo grid em "Todas": o catálogo é buscado uma vez só.
-  const catalog = useCatalog("todas");
-
-  const categoryName = catalog.data?.categories.find((c) => c.slug === selected?.category)?.name;
-
+  usePageMeta(
+    "Nany | Semijoias, vestuário e lingerie em Guarapuava",
+    "Encontre seu próximo encanto na Nany. Veja fotos reais das semijoias, salve suas favoritas e converse com a Eliane pelo WhatsApp. Guarapuava — PR.",
+  );
+  const catalog = useCatalog();
+  const details = useProductLink();
+  const selected = catalog.data?.products.find((product) => product.slug === details.slug) ?? null;
+  const categoryName = catalog.data?.categories.find(
+    (category) => category.slug === selected?.category,
+  )?.name;
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background">
+    <>
       <SiteHeader />
-      <main>
-        <Hero pieceCount={catalog.data?.total} />
-        <FirstVisit />
-        <div className="shell flex flex-wrap justify-center gap-4 py-6">
-          <a href={whatsappLink(`Olá, ${STORE.owner}! Estou conhecendo o vestuário da Nany. Você pode me enviar as opções disponíveis e confirmar tamanhos e valores?`)} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Consultar Vestuário →
-          </a>
-          <a href={whatsappLink(`Olá, ${STORE.owner}! Estou conhecendo a lingerie da Nany. Você pode me enviar as opções disponíveis e confirmar tamanhos e valores?`)} target="_blank" rel="noopener noreferrer" className="btn-gold">
-            Consultar Lingerie →
-          </a>
-        </div>
-        <Catalog onOpenProduct={setSelected} />
+      <main id="conteudo">
+        <Hero
+          pieceCount={catalog.data?.total}
+          featured={catalog.data?.products.find((product) => product.id === 8)}
+          onOpenProduct={details.open}
+        />
+        <Catalog onOpenProduct={details.open} />
+        <OtherCollections />
         <HowToBuy />
-        <PurchaseInfo />
         <AboutOwner />
         <Faq />
         <FinalCta />
       </main>
-      <SiteFooter title="Semijoias" />
+      <SiteFooter />
       <WhatsappFab />
-      <ProductModal product={selected} categoryName={categoryName} onClose={() => setSelected(null)} />
-    </div>
+      <ProductModal product={selected} categoryName={categoryName} onClose={details.close} />
+      <Dialog
+        open={Boolean(details.slug && catalog.isSuccess && !selected)}
+        onClose={details.close}
+        titleId="missing-product-title"
+      >
+        <div className="catalog-empty">
+          <h2 id="missing-product-title">Essa peça não está na vitrine.</h2>
+          <p>O link pode estar desatualizado. Que tal conhecer as outras semijoias da Nany?</p>
+          <button type="button" className="btn-primary" onClick={details.close}>
+            Voltar para a vitrine <ArrowRight size={17} aria-hidden="true" />
+          </button>
+        </div>
+      </Dialog>
+    </>
   );
 }
-
 export default Index;

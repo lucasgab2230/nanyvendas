@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { orpc } from "../lib/api";
 
-// Hooks do catálogo — o grid e a home nunca chamam `orpc.*` direto.
-export function useCatalog(category?: string) {
+/** Uma única consulta é compartilhada pelo catálogo, detalhes e seleção. */
+export function useCatalog() {
   return useQuery(
     orpc.catalog.list.queryOptions({
-      input: { category },
+      input: { category: "todas" },
       staleTime: 5 * 60_000,
     }),
   );

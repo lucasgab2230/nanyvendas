@@ -1,76 +1,58 @@
-import { MapPin, Clock, Info } from "lucide-react";
+import { ArrowUpRight, Clock3, Heart, MapPin } from "lucide-react";
+import { Link } from "wouter";
 import { SiWhatsapp } from "react-icons/si";
 import { STORE, whatsappLink } from "../lib/whatsapp";
-
-const navLinks = [
-  { href: "/", label: "Semijoias" },
-  { href: "/vestuario", label: "Vestuário" },
-  { href: "/lingerie", label: "Lingerie" },
-  { href: "#como-comprar", label: "Como comprar" },
-  { href: "#cuidados", label: "Compra e cuidados" },
-  { href: "#sobre", label: "A Nany" },
-  { href: "#duvidas", label: "Dúvidas" },
-];
+import { Brand } from "./site-header";
 
 export function SiteFooter({ title = "Semijoias" }: { title?: string }) {
   return (
-    <footer className="border-t border-gold/15 bg-[#080706]">
-      <div className="shell grid gap-10 py-14 lg:grid-cols-12">
-        <div className="flex flex-col gap-4 lg:col-span-5">
-          <span className="font-display text-[30px] leading-none text-foreground">
-            Nany<span className="gold-text">.</span>{" "}
-            <span className="font-sans text-[10px] tracking-[0.28em] text-gold/80 uppercase">{title}</span>
-          </span>
-          <p className="max-w-sm font-sans text-[13.5px] leading-relaxed text-muted-foreground">
-            Semijoias, vestuário e lingerie da Nany. Consulte disponibilidade, detalhes e formas de entrega com a {STORE.owner} pelo WhatsApp.
+    <footer className="site-footer">
+      <div className="shell footer-main">
+        <div className="footer-brand">
+          <Link href="/" aria-label="Nany Semijoias & Mais — página inicial">
+            <Brand light />
+          </Link>
+          <p>
+            Semijoias, vestuário e lingerie.
+            <br />
+            Pequenos detalhes que fazem parte de você.
           </p>
-          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-gold self-start">
-            <SiWhatsapp className="size-4" />
-            Pedir pelo WhatsApp
-          </a>
-        </div>
-
-        <div className="flex flex-col gap-3 lg:col-span-4">
-          <span className="eyebrow">Contato</span>
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 font-sans text-[13.5px] text-foreground/85 transition-colors hover:text-gold-soft"
-          >
-            <SiWhatsapp className="size-4 text-gold" />
-            {STORE.whatsappLabel}
-          </a>
-          <span className="flex items-center gap-3 font-sans text-[13.5px] text-foreground/85">
-            <MapPin className="size-4 text-gold" strokeWidth={1.5} />
-            {STORE.city}
-          </span>
-          <span className="flex items-center gap-3 font-sans text-[13.5px] text-foreground/85">
-            <Clock className="size-4 text-gold" strokeWidth={1.5} />
-            {STORE.hours}
+          <span className="footer-made">
+            <Heart size={13} aria-hidden="true" /> Feito com carinho, em Guarapuava.
           </span>
         </div>
-
-        <div className="flex flex-col gap-3 lg:col-span-3">
-          <span className="eyebrow">Navegar</span>
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href.startsWith("#") && title !== "Semijoias" ? `/${link.href}` : link.href}
-              className="font-sans text-[13.5px] text-foreground/80 transition-colors hover:text-gold-soft"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="footer-nav" aria-label="Navegação do rodapé">
+          <h2>Explore a Nany</h2>
+          <a href="/#catalogo" aria-current={title === "Semijoias" ? "page" : undefined}>
+            Semijoias
+          </a>
+          <Link href="/vestuario">Vestuário</Link>
+          <Link href="/lingerie">Lingerie</Link>
+          <a href="/#como-comprar">Como comprar</a>
+          <a href="/#duvidas">Dúvidas frequentes</a>
+        </nav>
+        <div className="footer-contact">
+          <h2>Uma conversa com a Eliane</h2>
+          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+            <SiWhatsapp size={17} aria-hidden="true" /> {STORE.whatsappLabel}{" "}
+            <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+          <p>
+            <MapPin size={16} aria-hidden="true" /> {STORE.city}
+          </p>
+          <p>
+            <Clock3 size={16} aria-hidden="true" /> {STORE.hours}
+          </p>
+          <span>
+            Pagamento, entrega e disponibilidade:
+            <br />
+            tudo combinado diretamente com a loja.
+          </span>
         </div>
       </div>
-
-      <div className="shell flex flex-col gap-4 border-t border-gold/12 py-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="flex items-start gap-2 font-sans text-[11px] leading-relaxed text-muted-foreground">
-          <Info className="mt-[2px] size-3.5 shrink-0 text-gold/70" strokeWidth={1.6} />
-          {STORE.name} © {new Date().getFullYear()}
-        </p>
-        <p className="font-sans text-[11px] text-muted-foreground/70">Feito com carinho para a {STORE.owner}</p>
+      <div className="shell footer-bottom">
+        <p>© {new Date().getFullYear()} Nany. Todos os direitos reservados.</p>
+        <a href="#topo">Voltar ao início ↑</a>
       </div>
     </footer>
   );

@@ -1,3 +1,5 @@
+import { selectionSummary } from "./selection";
+
 /**
  * Tudo que envolve WhatsApp passa por aqui.
  *
@@ -28,10 +30,16 @@ export function formatPrice(value: number): string {
 }
 
 /** Mensagem com a peça identificada — usada no botão do modal. */
-export function productMessage(product: { name: string; price: number | null; slug: string }): string {
+export function productMessage(product: {
+  name: string;
+  price: number | null;
+  slug: string;
+}): string {
   return [
     `Olá, ${STORE.owner}! Vi no site a peça *${product.name}*${product.price === null ? "" : ` (${formatPrice(product.price)})`}`,
-    product.price === null ? "e gostaria de saber o preço e se ela está disponível." : "e gostaria de saber se ela está disponível.",
+    product.price === null
+      ? "e gostaria de saber o preço e se ela está disponível."
+      : "e gostaria de saber se ela está disponível.",
     "",
     `Peça: ${product.slug}`,
   ].join("\n");
@@ -46,6 +54,35 @@ export function firstVisitWhatsappLink(): string {
   return whatsappLink(FIRST_VISIT_MESSAGE);
 }
 
-export function productWhatsappLink(product: { name: string; price: number | null; slug: string }): string {
+export function productWhatsappLink(product: {
+  name: string;
+  price: number | null;
+  slug: string;
+}): string {
   return whatsappLink(productMessage(product));
+}
+
+/** Uma mensagem única, com referências suficientes para a loja identificar tudo. */
+export function selectionMessage(
+  products: { name: string; price: number | null; slug: string }[],
+): string {
+  if (products.length === 0) return DEFAULT_MESSAGE;
+  const { subtotal, unknownPrices: unknown } = selectionSummary(products);
+  return [
+    `Olá, ${STORE.owner}! Escolhi estas peças no site da Nany:`,
+    "",
+    ...products.map(
+      (product, index) =>
+        `${index + 1}. *${product.name}* — ${product.price === null ? "consultar preço" : formatPrice(product.price)}\nReferência: ${product.slug}`,
+    ),
+    "",
+    `Subtotal dos preços informados: ${formatPrice(subtotal)}${unknown ? ` + ${unknown} ${unknown === 1 ? "peça sob consulta" : "peças sob consulta"}.` : "."}`,
+    "Você pode confirmar os valores, a disponibilidade, as formas de pagamento e as opções de entrega ou retirada?",
+  ].join("\n");
+}
+
+export function selectionWhatsappLink(
+  products: { name: string; price: number | null; slug: string }[],
+): string {
+  return whatsappLink(selectionMessage(products));
 }

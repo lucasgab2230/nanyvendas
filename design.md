@@ -1,83 +1,67 @@
-# Nany Semijoias — Design
+# Nany — design e experiência
 
-Landing page + catálogo de semijoias para a loja **Nany Semijoias** (dona: Eliane). Web (React/Vite), tema escuro
-"joalheria": preto quente, dourado e uma serifada fina. O trabalho principal da página é levar a visitante do
-brilho da vitrine até uma conversa no WhatsApp com o produto já identificado na mensagem.
+## Direção
 
-Versão atual = **vitrine com fotos reais de semijoias** em `packages/web/public/images/images/`. O banner mostra a
-foto do porta-joias (não é um produto). Preços ilegíveis ou ausentes devem ser consultados pelo WhatsApp. Vestuário
-e lingerie permanecem sem itens publicados até que fotos e dados reais sejam confirmados.
+Vitrine acolhedora para a Eliane, em Guarapuava, com foco em **encontrar uma peça e iniciar uma conversa pelo WhatsApp**. A experiência anterior, escura e com muitos blocos antes do catálogo, deu lugar a uma apresentação clara, navegação curta e ações legíveis no celular.
 
-## Brand & Colors
+Não simula um checkout, estoque em tempo real, reserva ou pagamento on-line. As informações comerciais são confirmadas com a loja.
 
-Paleta em `packages/web/src/web/styles.css` (CSS variables) e expostas ao Tailwind via `@theme inline`.
+## Identidade visual
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--background` / `bg-background` | `#0A0908` | Fundo da página (preto quente) |
-| `--surface` / `bg-surface` | `#12100C` | Seções alternadas, cards |
-| `--elevated` / `bg-elevated` | `#1A1712` | Cards de produto, modal, header |
-| `--gold` / `text-gold` | `#C9A24A` | Acento principal: preços, filetes, CTAs |
-| `--gold-soft` | `#EBD79A` | Brilho/gradiente, hover, destaques |
-| `--gold-deep` | `#8A6A21` | Sombras do ouro, bordas discretas |
-| `--foreground` | `#F7F2E8` | Texto principal (branco creme) |
-| `--muted-foreground` | `#A79C88` | Texto secundário |
-| `--border` | `rgba(201,162,74,0.18)` | Filetes dourados de 1px |
-| `--rose` | `#D8A79C` | "Preço antigo"/etiquetas, uso raríssimo |
-| `--whatsapp` | `#25D366` | Só o botão flutuante e o CTA do produto |
+- Fundo marfim `#FCFAF7`, superfícies creme `#F4EEE5`, texto carvão `#34312C`.
+- Terracota `#9B523B` para ações e títulos em itálico; verde `#286447` para o WhatsApp.
+- Tons secundários escurecidos para garantir contraste dos textos, verificados com axe.
+- **Cormorant Garamond** para títulos e marca; **Jost** para interface e corpo. Fontes locais, sem depender de serviços externos.
+- Fotografia verdadeira: nenhuma imagem gerada substitui os produtos. A maleta continua como apresentação, sem virar item à venda.
+- Arcos, linhas delicadas e cantos discretos fazem a ligação entre o hero e as outras seções. Não há animação obrigatória para revelar conteúdo.
 
-Regras: dourado é acento, nunca fundo de área grande. Blocos escuros usam gradiente radial sutil + textura de
-grão (`.grain`) para não ficar chapado. Nada de branco puro em texto longo.
+Estilos organizados em `packages/web/src/web/styles/`: base/tokens, cabeçalho, hero, catálogo, seções, diálogos, coleções e adaptações para tablet/celular. `styles.css` compõe esses arquivos e importa o Tailwind.
 
-## Typography
+## Hierarquia
 
-- **Display:** `Cormorant Garamond` (serifada, 400–700) — títulos grandes, nome da loja, preços em destaque.
-  Tracking levemente negativo em tamanhos grandes, `italic` para sussurros elegantes.
-- **Body:** `Jost` (geométrica, 300–600) — textos, botões, etiquetas. 300 para parágrafos longos,
-  500/600 para botões e nomes de peça, sempre com `letter-spacing` aberto em caixa-alta pequena.
-- Hierarquia: eyebrow (11px, uppercase, tracking 0.24em, dourado) → h2 display 40–64px → lead 17px muted → corpo 15px.
-- Fontes self-hosted em `packages/web/public/fonts/` (woff2 variável), declaradas no topo de `styles.css`.
+1. Faixa local e cabeçalho compacto: semijoias, vestuário, lingerie e como comprar.
+2. Hero com uma semijoia real, acesso direto à vitrine e ajuda da Eliane.
+3. Catálogo: busca → preço → categoria/ordenação → peças → carregar mais.
+4. Outras coleções, como comprar, apresentação da loja, perguntas e contato final.
 
-## Layout
+No computador, a grade tem quatro colunas; em telas intermediárias, três; no celular, duas. A página não usa `overflow-x: hidden` para disfarçar problemas de largura. Os testes incluem 320, 390, 768, 1024 e 1440 px.
 
-- Container `max-w-7xl` com respiro lateral de 20–28px; seções com 96–128px de padding vertical.
-- Assimetria deliberada: hero em 5/7 colunas com a foto da maleta invadindo a margem direita; catálogo em grid de
-  3 colunas com o card "destaque" ocupando 2 colunas; apresentação da loja sem retrato de banco de imagens.
-- Sem "grade de cards arredondados genérica": cards de produto são retângulos secos com cantos de 2px,
-  filete dourado e sombra interna — vitrine, não dashboard.
-- Divisórias são filetes dourados de 1px com fade nas pontas, nunca bordas cinzas.
+## Fluxos principais
 
-## Components
+### Descobrir e pedir uma peça
 
-- **Header** (`components/site-header.tsx`) — fixo, translúcido com blur ao rolar, âncora das seções + CTA WhatsApp.
-- **Hero / banner** (`components/hero.tsx`) — banner com a foto real do porta-joias, título claro, atalho à vitrine
-  e convite de primeiro contato.
-- **Placeholder de joia** (`components/jewel-art.tsx`) — arte vetorial por categoria (anel, colar, brinco,
-  pulseira, conjunto) desenhada à mão em traço dourado, usada em todo lugar onde faltar foto real.
-- **Catálogo** (`components/catalog.tsx`, `product-card.tsx`) — filtros por categoria em pills + grid; card mostra
-  nome, categoria, preço quando legível (ou consulta), descrição e selo. Disponibilidade é confirmada pela loja.
-- **Modal da peça** (`components/product-modal.tsx`) — nome, preço, descrição, detalhes técnicos e o botão
-  "Pedir no WhatsApp" com mensagem padrão já preenchida. Fecha com Esc, clique no scrim e botão X.
-- **Primeira visita / Como comprar / Informações de compra / Sobre a Nany / Perguntas / Footer** — blocos acolhedores
-  que deixam disponibilidade, entrega, pagamento e condições específicos para confirmação com Eliane.
-- **Botão flutuante do WhatsApp** (`components/whatsapp-fab.tsx`) — sempre visível, com mensagem padrão geral.
+Busca local sem distinção de acentos/maiúsculas e com múltiplas palavras. Filtros podem ser combinados e limpos; valores sob consulta ficam ao final da ordenação de preços. A URL preserva busca, categoria, faixa e ordem. As categorias sem produtos não são oferecidas como filtros.
 
-## Key User Flows
+A cliente abre o detalhe, pode ampliar a foto e pedir pelo WhatsApp com referência e preço quando informado. Links `/?peca=slug` abrem diretamente a peça; links inválidos têm recuperação, e voltar no navegador fecha o detalhe aberto pela vitrine.
 
-1. **Primeira visita:** a cliente abre a home, vê o convite de boas-vindas, a foto real do porta-joias e as semijoias.
-2. **Ver vitrine → abrir peça → pedir:** filtra por categoria, abre uma peça e envia pelo WhatsApp uma mensagem que
-   identifica o item; se o preço não estiver disponível, a mensagem pede confirmação.
-3. **Dúvida rápida:** os CTAs de contato levam ao WhatsApp; os atalhos de roupas/lingerie já preparam uma consulta
-   sobre as opções atuais. Não são exibidos preços nem produtos de demonstração nessas categorias.
-4. **Filtro sem resultado:** o grid informa a categoria vazia e permite voltar a "Todas".
+### Escolher várias peças
 
-## Architecture
+O coração salva IDs locais. A seleção sempre busca nome, foto e valor no catálogo atual; dados antigos e IDs removidos não se tornam ofertas. O painel apresenta subtotal em centavos, separa itens sob consulta, permite remover peças e prepara uma única mensagem.
 
-- **API**: `packages/web/src/api/routes/catalog.ts` (oRPC) lê o catálogo tipado de
-  `packages/web/src/api/catalog/products.ts` — `catalog.list` aceita `{ category }` e devolve categorias + peças.
-  Rotas separadas para vestuário e lingerie não expõem produtos até haver fotos/preços confirmados.
-- **Web**: hooks em `packages/web/src/web/queries/catalog.ts` (`useCatalog`), consumidos pela página e pelo grid.
-  Skeleton de carregamento obrigatório antes do grid.
-- **WhatsApp**: helper único em `packages/web/src/web/lib/whatsapp.ts` (número, mensagem padrão e mensagem por
-  peça) — nenhum componente monta link `wa.me` na mão.
-- **Estado**: seleção da peça e da categoria vivem na página (`useState`), sem estado global.
+O site informa claramente que a seleção não faz reserva. O armazenamento pode ser bloqueado sem derrubar a experiência; nesse caso ela continua válida durante a visita.
+
+### Compartilhar
+
+Compartilhamento nativo quando suportado; cópia do link em contexto seguro; campo manual selecionável quando o navegador não oferece essas APIs. Os links diretos compartilháveis são das semijoias publicadas.
+
+### Vestuário e lingerie
+
+Páginas próprias, com estado real da coleção e consulta contextual pelo WhatsApp. Não criam fotos, preços ou promessas. O componente compartilhado também pode exibir produtos tipados quando forem aprovados e cadastrados.
+
+## Acessibilidade e resiliência
+
+- HTML em `pt-BR`, título e descrição por página, link para pular ao conteúdo.
+- Botões com rótulos e estados `aria-pressed`; busca e selects com nomes acessíveis.
+- `dialog.showModal()` mantém o fundo inerte; o componente controla o ciclo de Tab, Escape, clique fora e devolução de foco. Fechar permanece visível durante a rolagem.
+- Menu de celular como disclosure, com Escape e fechamento ao navegar ou tocar fora.
+- FAQ usa `details`/`summary`, sem depender de JavaScript para expandir respostas.
+- Mensagens de estado sem bloquear a navegação. Estados de carregamento, erro com nova tentativa, busca vazia, seleção vazia e produto inexistente.
+- Fotos responsivas com tamanhos estáveis, carregamento sob demanda e fallback para original/aviso. Variantes quadradas preservam a imagem inteira, sem recortar etiquetas na vitrine e nos detalhes.
+- `prefers-reduced-motion` desativa transições, animações e rolagem suave.
+- Testes de navegador exercitam desktop e celular, incluindo auditoria automática WCAG A/AA da vitrine, do detalhe e da seleção. Ainda é recomendável validar com a Eliane no aparelho que ela usa.
+
+## Arquitetura da experiência
+
+A consulta `useCatalog()` é compartilhada pelo hero, catálogo e seleção com TanStack Query. As 35 peças são pequenas como dados; busca e filtros ocorrem em memória, sem requisição a cada toque. A grade começa com 12 itens e oferece mais 12 por vez, mantendo as fotos restantes fora do carregamento inicial.
+
+WhatsApp e formatação monetária ficam em `lib/whatsapp.ts`; filtros em `lib/catalog.ts`; persistência e subtotal em `lib/selection.ts`. O servidor Node de produção entrega arquivos e API pela mesma origem, assim como a prévia de desenvolvimento.

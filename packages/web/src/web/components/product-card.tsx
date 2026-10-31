@@ -1,89 +1,68 @@
+import { ArrowUpRight, Heart } from "lucide-react";
 import type { Product } from "../../api/catalog/products";
 import { JewelPlate } from "./jewel-plate";
 import { formatPrice } from "../lib/whatsapp";
+import { useSelection } from "./selection-provider";
 
-/**
- * Card da vitrine. Duas formas: vertical (padrão) e horizontal (peças em
- * destaque, que ocupam duas colunas no grid — quebra a grade de propósito).
- */
-export function ProductCard({
+export type CatalogProduct = Omit<Product, "category"> & { category: string };
+
+export function ProductCard<T extends CatalogProduct>({
   product,
   categoryName,
-  variant = "vertical",
   onOpen,
+  selectable = true,
 }: {
-  product: Product;
+  product: T;
   categoryName?: string;
   variant?: "vertical" | "horizontal";
-  onOpen: (product: Product) => void;
+  onOpen: (product: T) => void;
+  selectable?: boolean;
 }) {
-  const discount =
-    product.price !== null && product.compareAtPrice && product.compareAtPrice > product.price
-      ? Math.round((1 - product.price / product.compareAtPrice) * 100)
-      : 0;
-
-  const info = (
-    <div className="flex flex-1 flex-col gap-3 text-left">
-      <div className="flex items-center gap-3">
-        {categoryName && <span className="eyebrow text-[10px] text-gold/80">{categoryName}</span>}
-        {product.badge && (
-          <span className="border border-gold/35 px-2 py-[3px] font-sans text-[9px] tracking-[0.18em] text-gold-soft uppercase">
-            {product.badge}
-          </span>
+  const selection = useSelection();
+  const saved = selectable && selection.ids.includes(product.id);
+  return (
+    <article className="product-card" data-product-id={product.id}>
+      <div className="product-card-visual">
+        <button
+          type="button"
+          className="product-image-button"
+          onClick={() => onOpen(product)}
+          aria-label={`Ver detalhes de ${product.name}`}
+        >
+          <JewelPlate image={product.image} alt={product.name} />
+        </button>
+        {product.featured && <span className="product-badge">Seleção Nany</span>}
+        {selectable && (
+          <button
+            type="button"
+            className={`favorite-button ${saved ? "is-saved" : ""}`}
+            aria-label={`${saved ? "Remover" : "Salvar"} ${product.name}${saved ? " da" : " na"} seleção`}
+            aria-pressed={saved}
+            onClick={() => selection.toggle(product)}
+          >
+            <Heart
+              size={19}
+              strokeWidth={1.6}
+              fill={saved ? "currentColor" : "none"}
+              aria-hidden="true"
+            />
+          </button>
         )}
       </div>
-
-      <h3 className={`font-display text-foreground ${variant === "horizontal" ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
-        {product.name}
-      </h3>
-
-      <p className="font-sans text-[13px] leading-relaxed text-muted-foreground">{product.summary}</p>
-
-      <div className="mt-1 flex items-end justify-between gap-4">
-        <div className="flex flex-col">
-          {discount > 0 && (
-            <span className="font-sans text-[11px] text-muted-foreground/70 line-through">
-              {formatPrice(product.compareAtPrice!)}
-            </span>
-          )}
-          <span className="font-display text-2xl text-gold-soft">
-            {product.price === null ? "Consultar preço" : formatPrice(product.price)}
-          </span>
-        </div>
-        <span className="font-sans text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-          {variant === "horizontal" ? "Ver e pedir →" : "Ver e pedir →"}
-        </span>
+      <div className="product-card-info">
+        <span className="product-category">{categoryName ?? product.category}</span>
+        <h3>
+          <button type="button" onClick={() => onOpen(product)}>
+            {product.name}
+          </button>
+        </h3>
+        <p className={`product-price ${product.price === null ? "price-on-request" : ""}`}>
+          {product.price === null ? "Preço sob consulta" : formatPrice(product.price)}
+        </p>
+        <button className="product-detail-button" type="button" onClick={() => onOpen(product)}>
+          Ver a peça <ArrowUpRight size={16} aria-hidden="true" />
+        </button>
       </div>
-    </div>
-  );
-
-  return (
-    <button
-      type="button"
-      onClick={() => onOpen(product)}
-      aria-label={`Ver ${product.name} — ${product.price === null ? "consultar preço" : formatPrice(product.price)}`}
-      className={`piece-card group w-full ${variant === "horizontal" ? "flex-col sm:flex-row" : "flex-col"}`}
-    >
-      <JewelPlate
-        category={product.category}
-        tone={product.tone}
-        image={product.image}
-        alt={product.name}
-        className={
-          variant === "horizontal"
-            ? "relative h-56 w-full shrink-0 sm:h-full sm:min-h-[300px] sm:w-[46%]"
-            : "relative aspect-square w-full"
-        }
-        artClassName={variant === "horizontal" ? "w-[46%] text-gold-soft/85" : "w-[52%] text-gold-soft/85"}
-      />
-
-      {variant === "horizontal" ? (
-        <div className="flex flex-1 flex-col p-6 sm:p-8">{info}</div>
-      ) : (
-        <div className="flex flex-1 flex-col p-5">{info}</div>
-      )}
-
-      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-    </button>
+    </article>
   );
 }

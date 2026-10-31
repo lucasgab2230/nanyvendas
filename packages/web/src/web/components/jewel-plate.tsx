@@ -1,52 +1,69 @@
-import type { CategorySlug } from "../../api/catalog/products";
-import { JewelArt } from "./jewel-art";
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { ImageOff } from "lucide-react";
+import { optimizedImage } from "../lib/catalog";
 
-/**
- * "Prateleira" onde a foto da peça vai morar.
- *
- * Sem foto real, ela mostra a arte dourada da categoria + a moldura tracejada
- * com o tamanho da imagem. Quando `image` existir no catálogo, ela já entrega a
- * foto no lugar da arte.
- */
+/** Fotos responsivas e completas: nenhum detalhe ou etiqueta fica cortado. */
 export function JewelPlate({
-  category,
-  tone = 1,
   image,
-  alt,
+  alt = "",
   className = "",
-  artClassName = "w-[52%] text-gold-soft/85",
-  showSlotHint = true,
-  slotHint = "foto real • 1200 × 1200",
   children,
+  large = false,
+  priority = false,
 }: {
-  category: CategorySlug;
-  tone?: number;
   image?: string | null;
   alt?: string;
   className?: string;
+  children?: ReactNode;
+  large?: boolean;
+  priority?: boolean;
+  // Compatibilidade com os catálogos de outras coleções.
+  category?: string;
+  tone?: number;
   artClassName?: string;
   showSlotHint?: boolean;
-  slotHint?: string;
-  children?: React.ReactNode;
 }) {
+  const [failedImage, setFailedImage] = useState<string | null>(null);
+  const isOptimized = image?.startsWith("/images/images/") && image.endsWith(".jpg");
+  const failed = failedImage === image;
   return (
-    <div className={`plate plate-${tone} piece-plate relative flex items-center justify-center overflow-hidden ${className}`}>
-      {image ? (
-        <img src={image} alt={alt ?? ""} className="h-full w-full object-cover" loading="lazy" />
+    <div className={`product-photo ${className}`}>
+      {image && !failed ? (
+        <img
+          src={optimizedImage(image, large ? 960 : 480)}
+          srcSet={
+            isOptimized
+              ? `${optimizedImage(image, 480)} 480w, ${optimizedImage(image, 960)} 960w, ${optimizedImage(image, 1600)} 1600w`
+              : undefined
+          }
+          sizes={
+            large
+              ? "(max-width: 760px) 90vw, 48vw"
+              : "(max-width: 540px) 45vw, (max-width: 1000px) 30vw, 300px"
+          }
+          alt={alt}
+          loading={large ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+          width="480"
+          height="480"
+          onError={(event) => {
+            // Uma imagem nova ainda sem variantes pode usar a original.
+            if (event.currentTarget.src.endsWith(".webp") && image) {
+              event.currentTarget.removeAttribute("srcset");
+              event.currentTarget.src = image;
+            } else setFailedImage(image);
+          }}
+        />
       ) : (
-        <>
-          <div className="sheen pointer-events-none absolute inset-0 overflow-hidden" />
-          <JewelArt category={category} className={`relative ${artClassName}`} />
-        </>
+        <div className="photo-unavailable">
+          <ImageOff size={28} strokeWidth={1.2} aria-hidden="true" />
+          <span>Foto indisponível</span>
+          <small>Peça uma foto para a Eliane</small>
+        </div>
       )}
-
       {children}
-
-      {!image && showSlotHint && (
-        <span className="absolute bottom-3 left-3 font-sans text-[9px] tracking-[0.2em] text-gold/60 uppercase">
-          {slotHint}
-        </span>
-      )}
     </div>
   );
 }

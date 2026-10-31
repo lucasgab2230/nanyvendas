@@ -1,13 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { ReactNode } from "react";
+import { SelectionProvider } from "./selection-provider";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
+});
 
-interface ProviderProps {
-  children: React.ReactNode;
-}
-
-// App-level providers — add theme/context providers here, wrapping children.
-// QueryClientProvider must stay (all API calls run through TanStack Query).
-export function Provider({ children }: ProviderProps) {
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+export function Provider({ children }: { children: ReactNode }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SelectionProvider>{children}</SelectionProvider>
+    </QueryClientProvider>
+  );
 }
