@@ -19,7 +19,7 @@ export function OtherCollections() {
     <section className="other-collections shell" aria-label="Outras coleções da Nany">
       <div className="other-collections-label">
         <span className="eyebrow">ALÉM DO BRILHO</span>
-        <h2>Mais Nany para você.</h2>
+        <h2>Mais da Nany para você.</h2>
       </div>
       <Link href="/lingerie" className="collection-link">
         <span className="collection-icon">
