@@ -74,13 +74,6 @@ export function SiteHeader({ title = "Semijoias" }: { title?: string }) {
               Semijoias
             </a>
             <Link
-              href="/vestuario"
-              className={title === "Vestuário" ? "nav-active" : ""}
-              aria-current={title === "Vestuário" ? "page" : undefined}
-            >
-              Vestuário
-            </Link>
-            <Link
               href="/lingerie"
               className={title === "Lingerie" ? "nav-active" : ""}
               aria-current={title === "Lingerie" ? "page" : undefined}

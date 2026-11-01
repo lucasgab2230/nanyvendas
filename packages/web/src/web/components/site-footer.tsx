@@ -26,7 +26,6 @@ export function SiteFooter({ title = "Semijoias" }: { title?: string }) {
           <a href="/#catalogo" aria-current={title === "Semijoias" ? "page" : undefined}>
             Semijoias
           </a>
-          <Link href="/vestuario">Vestuário</Link>
           <Link href="/lingerie">Lingerie</Link>
           <a href="/#como-comprar">Como comprar</a>
           <a href="/#duvidas">Dúvidas frequentes</a>

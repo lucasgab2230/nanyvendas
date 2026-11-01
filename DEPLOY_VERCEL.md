@@ -41,7 +41,7 @@ curl --fail https://sua-loja.vercel.app/api/health
 No navegador:
 
 - Abra a página inicial: o catálogo deve carregar as **35 peças**.
-- Abra `/vestuario` e `/lingerie` diretamente e atualize a página: a navegação deve funcionar sem 404 da hospedagem.
+- Abra `/lingerie` diretamente e atualize a página: a navegação deve funcionar sem 404 da hospedagem.
 - Abra `/?peca=anel-dourado-largo`: os detalhes da peça devem aparecer.
 - Teste uma busca, os filtros, a seleção e o botão de consulta pelo WhatsApp.
 - `/api/nao-existe` deve retornar **404**, não a página inicial com status 200.

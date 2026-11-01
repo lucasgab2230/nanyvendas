@@ -7,7 +7,6 @@ import {
   MapPin,
   MessageCircle,
   Search,
-  Shirt,
   Sparkles,
 } from "lucide-react";
 import { Link } from "wouter";
@@ -22,16 +21,6 @@ export function OtherCollections() {
         <span className="eyebrow">ALÉM DO BRILHO</span>
         <h2>Mais Nany para você.</h2>
       </div>
-      <Link href="/vestuario" className="collection-link">
-        <span className="collection-icon">
-          <Shirt size={27} strokeWidth={1.2} aria-hidden="true" />
-        </span>
-        <span>
-          <strong>Vestuário</strong>
-          <small>Conheça as opções com a Eliane</small>
-        </span>
-        <ArrowUpRight size={21} strokeWidth={1.3} aria-hidden="true" />
-      </Link>
       <Link href="/lingerie" className="collection-link">
         <span className="collection-icon">
           <Flower2 size={28} strokeWidth={1.2} aria-hidden="true" />
@@ -175,8 +164,8 @@ export function Faq() {
       a: "Sim. Envie a peça pelo WhatsApp e pergunte sobre medidas, composição, conservação, garantia e trocas. Esses detalhes podem variar de um produto para outro, então confirme as condições da sua escolha antes de comprar.",
     },
     {
-      q: "Onde encontro as roupas e lingeries?",
-      a: "As fotos e os valores dessas coleções ainda não estão publicados no site. Nas páginas de Vestuário e Lingerie, você pode pedir à Eliane as opções atuais, incluindo tamanhos e valores, pelo WhatsApp.",
+      q: "Onde encontro as lingeries?",
+      a: "As fotos e os valores dessas coleções ainda não estão publicados no site. Na página de Lingerie, você pode pedir à Eliane as opções atuais, incluindo tamanhos e valores, pelo WhatsApp.",
     },
   ];
   return (

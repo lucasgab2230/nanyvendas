@@ -117,7 +117,7 @@ describe("Configuração de deploy Vercel", () => {
   it("o fallback cobre links diretos, mas não APIs nem arquivos ausentes", () => {
     // This rewrite is a regex-only path, with no named path-to-regexp tokens.
     const fallback = new RegExp(`^${rootDeployConfig.rewrites[1].source}$`);
-    for (const path of ["/", "/vestuario", "/vestuario/", "/roupas", "/lingerie", "/rota-inexistente", "/apiary"]) {
+    for (const path of ["/", "/lingerie", "/rota-inexistente", "/apiary"]) {
       assert.equal(fallback.test(path), true, path);
     }
     for (const path of ["/api", "/api/", "/api/health", "/api/rpc/catalog/list", "/assets/ausente.js", "/images/ausente.webp", "/favicon.svg"]) {

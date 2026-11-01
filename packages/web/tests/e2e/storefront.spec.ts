@@ -171,17 +171,11 @@ test("coleções, menu, perguntas frequentes e página inexistente são navegáv
 }) => {
   await page.goto("/");
   if (isMobile) await page.getByRole("button", { name: "Abrir menu", exact: true }).click();
-  await page
-    .getByRole("navigation", { name: "Navegação principal", exact: true })
-    .getByRole("link", { name: "Vestuário", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/vestuario$/);
-  await expect(page.getByText(/As fotos de vestuário ainda não estão publicadas/)).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Consultar vestuário", exact: true }),
-  ).toHaveAttribute("href", /wa\.me\/5542988089633/);
-  await page.goto("/roupas");
-  await expect(page).toHaveTitle(/Vestuário/);
+    page.getByRole("navigation", { name: "Navegação principal", exact: true }).getByRole("link", { name: "Vestuário", exact: true }),
+  ).toHaveCount(0);
+  await page.goto("/vestuario");
+  await expect(page.getByText("Esse caminho não está aqui.")).toBeVisible();
   await page.goto("/lingerie");
   await expect(page.getByText(/As fotos de lingerie ainda não estão publicadas/)).toBeVisible();
   await page.getByRole("link", { name: "Explorar semijoias", exact: true }).click();
