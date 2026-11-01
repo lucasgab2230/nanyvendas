@@ -185,7 +185,7 @@ export function Faq() {
         <div className="faq-heading">
           <p className="eyebrow">PODE PERGUNTAR</p>
           <h2 id="faq-title">
-            Tudo bem ter
+            Tudo bem ter{" "}
             <br />
             <em>uma dúvida.</em>
           </h2>
