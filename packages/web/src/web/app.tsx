@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import { AgentFeedback } from "@runablehq/website-runtime";
 import Index from "./pages/index";
-import ClothingPage from "./pages/clothing";
 import LingeriePage from "./pages/lingerie";
 import NotFound from "./pages/not-found";
 import { Provider } from "./components/provider";
@@ -30,8 +29,6 @@ function App() {
         <RouteScroll />
         <Switch>
           <Route path="/" component={Index} />
-          <Route path="/vestuario" component={ClothingPage} />
-          <Route path="/roupas" component={ClothingPage} />
           <Route path="/lingerie" component={LingeriePage} />
           <Route component={NotFound} />
         </Switch>
