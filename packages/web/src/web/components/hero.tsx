@@ -22,11 +22,11 @@ export function Hero({
               <span className="eyebrow-line" /> BELEZA NOS PEQUENOS DETALHES
             </p>
             <h1>
+              Sua escolha.
+              <br />
               Seu brilho.
               <br />
-              Seu jeito.
-              <br />
-              <em>Sua Nany.</em>
+              <em>Seu estilo.</em>
             </h1>
             <p className="hero-description">
               Semijoias que dão um toque especial ao seu dia.

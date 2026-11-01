@@ -128,8 +128,8 @@ export function AboutOwner() {
           <em>tem a Eliane.</em>
         </h2>
         <p>
-          A Nany é uma loja de semijoias, vestuário e lingerie em Guarapuava. Um espaço para
-          encontrar algo que combine com você — ou com alguém especial.
+          A Nany é uma consultora de vendas em Guarapuava — PR com atendimento de Whats e
+          presencial para Guarapuava e Região. Agradecemos pela sua escolha. ❤️😉
         </p>
         <p>
           E o atendimento é de pessoa para pessoa. É com a Eliane que você tira dúvidas, confirma os
