@@ -50,7 +50,7 @@ export function Catalog({ onOpenProduct }: { onOpenProduct: (product: Product) =
         <div className="section-heading catalog-heading">
           <div>
             <p className="eyebrow">
-              <Sparkles size={14} aria-hidden="true" /> ENCONTRE SUA PRÓXIMA FAVORITA
+              <Sparkles size={14} aria-hidden="true" /> ENCONTRE SUA PEÇA FAVORITA
             </p>
             <h2 id="catalog-title">
               Pequenos detalhes, <em>grandes encantos.</em>
